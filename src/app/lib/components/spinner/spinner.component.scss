@@ -1,0 +1,24 @@
+@import '../../bootstrap.scss';
+.app-spinner--overlay {
+    background-color: rgba($color: $dark, $alpha: 0.5);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.app-spinner__icon {
+    animation: spin .5s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
