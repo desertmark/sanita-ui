@@ -1,0 +1,11 @@
+<div class="form-group text-left">
+  <label>{{model.label}}</label>
+  <input
+    [formControl]="model"
+    [placeholder]="model.placeholder"
+    [class.is-invalid]="model.showError"
+    class="form-control"
+    type="text"
+    [disabled]="model.disabled">
+  <app-form-errors [model]="model"></app-form-errors>
+</div>

@@ -1,0 +1,12 @@
+@import '../../lib/styles.scss';
+.login-view {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    background-color: $dark;
+}
+.login-view__body {
+    width: 50%;
+    height: 50%;
+    margin-top: 10rem;
+}

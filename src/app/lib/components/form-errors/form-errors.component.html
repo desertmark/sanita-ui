@@ -1,0 +1,6 @@
+<div *ngIf="model.showError" class="text-danger">
+  <p *ngIf="model.errors?.required">Este campo es obligatorio</p>
+  <p *ngIf="model.errors?.min">Ingrese un valor superior</p>
+  <p *ngIf="model.errors?.max">Ingrese un valor menor</p>
+  <p *ngIf="model.errors?.email">Ingrese un email valido</p>
+</div>

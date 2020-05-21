@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Boostrap Variable overrides */
+// $body-bg: red;
+// $body-color: #111;
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+/* Use of bootstrap variables */
+// body {
+//     background-color:$primary;
+// }
