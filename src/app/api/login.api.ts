@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { BaseApi } from './base.api';
 export interface LoginRequest {
   body: {
     email: string;
@@ -17,16 +18,7 @@ export interface LoginResponse {
   };
 }
 @Injectable()
-export class LoginApi {
-  private baseUrl = 'https://qa-artic-manager.herokuapp.com';
-
-  constructor(private http$: HttpClient) {
-  }
-
-
-  private url(path: string): string {
-    return this.baseUrl + path;
-  }
+export class LoginApi extends BaseApi {
 
   login(options: LoginRequest): Observable<LoginResponse> {
     return this.http$.post<LoginResponse>(this.url('/auth/login'), options.body);

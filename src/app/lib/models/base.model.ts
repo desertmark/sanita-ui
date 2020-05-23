@@ -1,9 +1,11 @@
 import { FormGroup, AbstractControl, ValidatorFn, AsyncValidatorFn } from '@angular/forms';
 import { BaseField } from './base-field.model';
+import { SubscriptionLike } from 'rxjs';
 export type FormControls = { [key: string]: AbstractControl };
 
 export class BaseModel {
   private group: FormGroup;
+  protected subscriptions: SubscriptionLike[] = [];
 
   init(validator?: ValidatorFn | null, asyncValidator?: AsyncValidatorFn | null) {
     const controls = this.getControls();
@@ -32,6 +34,10 @@ export class BaseModel {
 
   get touch(): boolean {
     return this.group.touched;
+  }
+
+  destroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
 }

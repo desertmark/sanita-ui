@@ -1,2 +1,11 @@
-<app-header></app-header>
-<router-outlet></router-outlet>
+<div class="app">
+  <app-header></app-header>
+  <app-loading-container>
+    <ng-template #loadingTemplate>
+      <app-spinner [fullScreen]="true" [overlay]=true></app-spinner>
+    </ng-template>
+    <div class="app__view-container">
+      <router-outlet></router-outlet>
+    </div>
+  </app-loading-container>
+</div>

@@ -6,6 +6,10 @@ import { PrivateModule } from './private/private.module';
 
 const routes: Routes = [
   {
+    path: '',
+    loadChildren: () => PublicModule
+  },
+  {
     path: 'public',
     loadChildren: () => PublicModule
   },

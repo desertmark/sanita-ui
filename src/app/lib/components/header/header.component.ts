@@ -9,7 +9,8 @@ export class HeaderComponent implements OnInit {
 
   links = [
     { title: 'Login', url: 'public/login' },
-    { title: 'Profile', url: 'private/profile' }
+    { title: 'Articles', url: 'private/articles' },
+    { title: 'Profile', url: 'private/profile' },
   ];
   constructor(public route: ActivatedRoute) {}
 

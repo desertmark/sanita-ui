@@ -9,6 +9,9 @@ import { PasswordFieldComponent } from './password-field/password-field.componen
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormErrorsComponent } from './form-errors/form-errors.component';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { LoadingContainerComponent } from './loading-container/loading-container.component';
+import { ViewHeaderComponent } from './view-header/view-header.component';
+import { RadioToggleComponent } from './radio-toggle/radio-toggle.component';
 
 const COMPONENTS = [
   HeaderComponent,
@@ -17,6 +20,9 @@ const COMPONENTS = [
   PasswordFieldComponent,
   FormErrorsComponent,
   SpinnerComponent,
+  LoadingContainerComponent,
+  ViewHeaderComponent,
+  RadioToggleComponent,
 ];
 
 @NgModule({

@@ -1,1 +1,10 @@
-<p>Profile works!</p>
+<div class="profile">
+  <div class="profile__background">
+  </div>
+  <div class="profile__picture">
+    <app-icon icon="userCircle" size="10rem"></app-icon>
+  </div>
+  <h2 class="text-center">{{ (appState.currentUser$ | async)?.firstName }} {{ (appState.currentUser$ | async)?.lastName }}</h2>
+  <p class="text-center text-secondary">{{ (appState.currentUser$ | async)?.email }}</p>
+  <p class="text-center text-secondary">{{ (appState.currentUser$ | async)?.role }}</p>
+</div>

@@ -1,0 +1,5 @@
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label *ngFor="let option of model.options" class="btn btn-secondary" [class.active]="isActive(option)">
+    <input [formControl]="model" type="radio" [value]="resolveValue(option)"> {{ resolveText(option) }}
+  </label>
+</div>

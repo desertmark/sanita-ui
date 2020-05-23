@@ -1,0 +1,11 @@
+@import '../../lib/bootstrap.scss';
+.profile__background {
+  background: url('../../../assets/images/profile-bg.jpg');
+  height: 20rem;
+  width: 100%;
+}
+
+.profile__picture {
+  display: flex;
+  justify-content: center;
+}

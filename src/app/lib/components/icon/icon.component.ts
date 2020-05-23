@@ -1,12 +1,18 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { faCoffee, IconDefinition, faLock, faEye, faCircleNotch } from '@fortawesome/free-solid-svg-icons';
+import { faCoffee, IconDefinition, faLock, faEye, faCircleNotch, faUserCircle, faCreditCard, faMoneyBillWave, faBox, faSearch } from '@fortawesome/free-solid-svg-icons';
 
 const ICON_MAP = {
   coffee: faCoffee,
   lock: faLock,
   eye: faEye,
   circleNotch: faCircleNotch,
+  userCircle: faUserCircle,
+  creditCard: faCreditCard,
+  moneyBillWave: faMoneyBillWave,
+  box: faBox,
+  search: faSearch,
 };
+
 
 
 @Component({

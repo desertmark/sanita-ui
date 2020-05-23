@@ -1,4 +1,5 @@
 import { FormControl, ValidatorFn, AbstractControlOptions, AsyncValidatorFn } from '@angular/forms';
+import { Observable } from 'rxjs';
 export interface BaseFieldAttr<T> {
   label?: string;
   placeholder?: string;
@@ -18,5 +19,8 @@ export class BaseField<T> extends FormControl {
 
   get showError(): boolean {
     return this.invalid && (this.dirty || this.touched);
+  }
+  get valueChanges$(): Observable<T> {
+    return this.valueChanges;
   }
 }

@@ -1,0 +1,15 @@
+.app-view-header {
+    background: transparent;
+    overflow: hidden;
+    position: relative;
+    border-radius: 0;
+    height: 20rem;
+}
+.app-view-header__img {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    position: absolute;
+}
