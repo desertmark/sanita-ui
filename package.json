@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "heroku:start": "lite-server --base-dir=dist/sanita",
+    "heroku-start": "lite-server --base-dir=dist/sanita",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
