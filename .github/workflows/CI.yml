@@ -25,7 +25,7 @@ jobs:
       run: echo running lint
 
     - name: Build
-      run: npm run build
+      run: npm run build:staging
 
     # - name: tests
     #   run: npm test

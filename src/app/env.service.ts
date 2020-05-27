@@ -1,5 +1,4 @@
 import { Injectable, Inject, InjectionToken } from '@angular/core';
-import { environment } from '../environments/environment';
 
 export interface EnvConfig {
   name: string;
