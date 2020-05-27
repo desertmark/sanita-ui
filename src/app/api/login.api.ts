@@ -24,4 +24,10 @@ export class LoginApi extends BaseApi {
     return this.http$.post<LoginResponse>(this.url('/auth/login'), options.body);
   }
 
+  logout() {
+    return this.http$.get(this.url('/auth/logout'), {
+      responseType: 'text',
+    });
+  }
+
 }

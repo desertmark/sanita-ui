@@ -11,6 +11,7 @@ export class ViewHeaderComponent implements OnInit {
   @Input() subtitle: string;
   @Input() subtitleColor: BootstrapColor = 'secondary';
   @Input() imgSrc: string;
+  @Input() color = 'primary';
   constructor() { }
 
   ngOnInit(): void {

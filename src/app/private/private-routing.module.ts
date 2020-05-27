@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ProfileComponent } from './profile/profile.component';
 import { ArticlesComponent } from './articles/articles.component';
+import { BulkEditComponent } from './bulk-edit/bulk-edit.component';
 
 
 const routes: Routes = [
@@ -12,6 +13,10 @@ const routes: Routes = [
   {
     path: 'articles',
     component: ArticlesComponent,
+  },
+  {
+    path: 'articles/bulk-edit',
+    component: BulkEditComponent,
   },
   {
     path: 'profile',

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { LoginState } from './public/login/login.state';
-import { EnvConfig, EnvService } from './env.service';
+import { EnvService } from './env.service';
 import { AppState } from './app.state';
 
 @Component({
@@ -9,9 +9,18 @@ import { AppState } from './app.state';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor(private appState: AppState, private loginState: LoginState, public envService: EnvService) {
+  constructor(
+    private appState: AppState,
+    public loginState: LoginState,
+    public envService: EnvService,
+  ) {
     console.log('running config:', this.envService.envConfig);
     this.restoreSession();
+    this.loginState.isLogged$.subscribe(isLogged => {
+      if (!isLogged) {
+        this.appState.currentUser$.clear();
+      }
+    });
   }
 
   restoreSession() {

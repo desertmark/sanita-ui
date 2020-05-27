@@ -1,0 +1,13 @@
+@import '../../bootstrap.scss';
+.navbar-nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    flex-direction: column;
+}
+
+@include media-breakpoint-up(lg) {
+    .navbar-nav-wrapper {
+      flex-direction: row;
+    }
+}

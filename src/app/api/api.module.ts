@@ -7,7 +7,6 @@ import { AuthInterceptor } from '../interceptors/auth.interceptor';
 import { ArticlesApi } from './articles.api';
 import { ErrorInterceptor } from '../interceptors/error.interceptor';
 
-
 @NgModule({
   declarations: [],
   providers: [

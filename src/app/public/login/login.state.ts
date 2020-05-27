@@ -5,6 +5,7 @@ import { LoadingUtil } from 'src/app/lib/util/loading.util';
 
 class State {
   loadingLogin = new LoadingUtil();
+  loadingLogout = new LoadingUtil();
   token$ = new BehaviorSubject<LoginResponse>(undefined);
   username: string;
   password: string;
@@ -20,6 +21,9 @@ export class LoginState {
 
   get isLoadingLogin$(): Observable<boolean> {
     return this.state.loadingLogin.isLoading$;
+  }
+  get isLoadingLogout$(): Observable<boolean> {
+    return this.state.loadingLogout.isLoading$;
   }
 
   get token$(): BehaviorSubject<LoginResponse> {
@@ -63,6 +67,20 @@ export class LoginState {
         complete: () => subscriber.complete(),
       });
       this.state.loadingLogin.waitFor(sub);
+    });
+  }
+
+  logout(): Observable<void> {
+    return new Observable<void>(subscriber => {
+      const sub = this.loginApi.logout().subscribe({
+        next: res => {
+          this.clearSession();
+          subscriber.next();
+        },
+        error: error => subscriber.error(error),
+        complete: () => subscriber.complete(),
+      });
+      this.state.loadingLogout.waitFor(sub);
     });
   }
 

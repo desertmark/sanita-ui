@@ -1,15 +1,32 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#">SANITA</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
-    aria-expanded="false" aria-label="Toggle navigation">
+  <button (click)="toggleCollapsed()" class="navbar-toggler" type="button">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item active" *ngFor="let link of links">
-        <a class="nav-link" routerLinkActive="active" [routerLink]="link.url">{{ link.title }} <span
-            class="sr-only">(current)</span></a>
-      </li>
-    </ul>
+  <div class="collapse navbar-collapse" #expandable>
+    <div class="navbar-nav-wrapper">
+      <ul class="navbar-nav">
+        <li class="nav-item active" *ngFor="let link of links">
+          <a class="nav-link" 
+            routerLinkActive="active"
+            [routerLink]="link.url"
+            *ngIf="link?.private && (loginState.isLogged$ | async) || !link?.private"
+          >
+            <app-icon  *ngIf="link.icon" [icon]="link.icon"></app-icon>
+            {{ link.title }} <span class="sr-only">(current)</span>
+          </a>
+        </li>
+      </ul>
+    <div>
+      <button *ngIf="!(loginState.isLogged$ | async)" [routerLink]="loginLink.url" class="btn btn-outline-info">
+        {{ loginLink.title }}
+      </button>
+      <button (click)="logout()" *ngIf="loginState.isLogged$ | async" class="btn btn-outline-danger">
+        Salir
+        <app-icon icon="singOutAlt" size="1rem"></app-icon>
+      </button>
+    </div>
+  </div>
+
   </div>
 </nav>

@@ -11,6 +11,9 @@ import { faCoffee,
   faSearch,
   faChevronUp,
   faChevronDown,
+  faSignOutAlt,
+  faThList,
+  faSync,
 } from '@fortawesome/free-solid-svg-icons';
 
 const ICON_MAP = {
@@ -25,6 +28,9 @@ const ICON_MAP = {
   search: faSearch,
   chevronUp: faChevronUp,
   chevronDown: faChevronDown,
+  singOutAlt: faSignOutAlt,
+  thList: faThList,
+  sync: faSync,
 };
 
 

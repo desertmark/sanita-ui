@@ -1,20 +1,55 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy, ViewChild, TemplateRef, ElementRef } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LoginState } from 'src/app/public/login/login.state';
+import { SubscriptionLike } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
-
+export class HeaderComponent implements OnDestroy {
+  @ViewChild('expandable') expandable: ElementRef<any>;
+  loginLink = { title: 'Login', url: 'public/login' };
   links = [
-    { title: 'Login', url: 'public/login' },
-    { title: 'Articles', url: 'private/articles' },
-    { title: 'Profile', url: 'private/profile' },
+    { title: 'Articles', url: 'private/articles', icon: 'thList' },
+    { title: 'Actualizar', url: 'private/articles/bulk-edit', private: true, icon: 'sync' },
+    { title: 'Profile', url: 'private/profile', private: true, icon: 'userCircle' },
   ];
-  constructor(public route: ActivatedRoute) {}
+  subscriptions: SubscriptionLike[] = [];
+  collapsed = true;
+  constructor(
+    public route: ActivatedRoute,
+    public loginState: LoginState,
+    private router: Router,
+  ) {}
 
-  ngOnInit(): void {
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(s => s.unsubscribe());
+  }
+
+  logout() {
+    const sub = this.loginState.logout().subscribe({
+      next: () => this.router.navigate(['/public']),
+    });
+    this.subscriptions.push(sub);
+  }
+
+  toggleCollapsed() {
+    this.collapsed ? this.show() : this.collapse();
+  }
+
+  private show() {
+    this.expandable.nativeElement.classList.add('collapsing');
+    this.expandable.nativeElement.classList.add('show');
+    const height = this.expandable.nativeElement.children[0].offsetHeight;
+    this.expandable.nativeElement.style.height = `${height}px`;
+    this.collapsed = false;
+  }
+
+  private collapse() {
+    this.expandable.nativeElement.style.height = `0px`;
+    this.collapsed = true;
   }
 
 }

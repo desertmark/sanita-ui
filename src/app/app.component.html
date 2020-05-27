@@ -1,6 +1,9 @@
 <div class="app">
   <app-header></app-header>
-  <app-loading-container>
+  <app-loading-container [isLoading]="
+  (loginState.isLoadingLogin$ | async) ||
+  (loginState.isLoadingLogout$ | async)
+  ">
     <ng-template #loadingTemplate>
       <app-spinner [fullScreen]="true" [overlay]=true></app-spinner>
     </ng-template>
