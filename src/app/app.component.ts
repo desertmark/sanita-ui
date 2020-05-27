@@ -9,7 +9,7 @@ import { EnvConfig, EnvService } from './env.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor(private appState: AppState, private loginState: LoginState, private envService: EnvService) {
+  constructor(private appState: AppState, private loginState: LoginState, public envService: EnvService) {
     console.log('running config:', this.envService.envConfig);
     this.restoreSession();
   }

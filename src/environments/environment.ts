@@ -9,7 +9,7 @@ export const environment: EnvConfig = {
   version,
   name: 'local',
   production: false,
-  baseUrl: 'http://localhost:3001'
+  baseUrl: 'https://sanita-service.herokuapp.com'
 };
 
 /*
