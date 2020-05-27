@@ -3,8 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 import { EnvConfig } from 'src/app/env.service';
+import { version } from '../../package.json';
 
 export const environment: EnvConfig = {
+  version,
   name: 'local',
   production: false,
   baseUrl: 'http://localhost:3001'

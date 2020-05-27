@@ -1,6 +1,7 @@
 import { Injectable, Inject, InjectionToken } from '@angular/core';
 
 export interface EnvConfig {
+  version: string;
   name: string;
   production: boolean;
   baseUrl: string;
