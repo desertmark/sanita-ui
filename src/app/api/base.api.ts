@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { EnvConfig, EnvService } from '../env.service';
 
 @Injectable()
 export abstract class BaseApi {
-  private baseUrl = 'https://qa-artic-manager.herokuapp.com';
+  get baseUrl(): string {
+    return this.envService.envConfig.baseUrl;
+  }
 
-  constructor(protected http$: HttpClient) {
+  constructor(protected http$: HttpClient, private envService: EnvService) {
   }
 
 

@@ -1,7 +1,7 @@
 import { EnvConfig } from 'src/app/env.service';
 
 export const environment: EnvConfig = {
-  name: 'prod',
+  name: 'staging',
   production: true,
-  baseUrl: 'https://sanita-service-prod.herokuapp.com'
+  baseUrl: 'https://sanita-service.herokuapp.com'
 };

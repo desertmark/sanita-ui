@@ -3,9 +3,11 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --configuration=$NODE_ENV",
     "heroku-start": "lite-server",
-    "build": "ng build",
+    "build": "ng build --configuration=$NODE_ENV",
+    "build:staging": "ng build --configuration=staging",
+    "build:prod": "ng build --configuration=production",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
