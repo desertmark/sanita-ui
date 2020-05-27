@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { AppState } from './public/app.state';
 import { LoginState } from './public/login/login.state';
 import { EnvConfig, EnvService } from './env.service';
+import { AppState } from './app.state';
 
 @Component({
   selector: 'app-root',

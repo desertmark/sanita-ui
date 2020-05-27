@@ -12,6 +12,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import { LoadingContainerComponent } from './loading-container/loading-container.component';
 import { ViewHeaderComponent } from './view-header/view-header.component';
 import { RadioToggleComponent } from './radio-toggle/radio-toggle.component';
+import { SelectComponent } from './select/select-field.component';
 
 const COMPONENTS = [
   HeaderComponent,
@@ -23,6 +24,7 @@ const COMPONENTS = [
   LoadingContainerComponent,
   ViewHeaderComponent,
   RadioToggleComponent,
+  SelectComponent,
 ];
 
 @NgModule({

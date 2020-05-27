@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { LoadingUtil } from 'src/app/lib/util/loading.util';
-import { UserApi, UserResponse } from '../api/user.api';
+import { UserResponse, UserApi } from './api/user.api';
+
+export enum UserRolesEnum {
+  ADMIN = 'ADMIN',
+  USER = 'USER',
+  ANONYMOUS = 'ANONYMOUS',
+}
 
 class State {
   loadingCurrentUser = new LoadingUtil();

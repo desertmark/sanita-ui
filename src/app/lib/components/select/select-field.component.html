@@ -1,0 +1,22 @@
+<div *ngIf="type==='default'" class="form-group">
+  <label *ngIf="model.label" >{{model.label}}</label>
+  <select
+    [formControl]="model"
+    class="form-control"
+    [class.is-invalid]="model.invalid"
+    >
+    <option *ngIf="model.placeholder" value="">{{model.placeholder}}</option>
+    <option *ngFor="let option of model.options" [value]="resolveValue(option)">
+      {{ resolveText(option) }}
+    </option>
+  </select>
+  <app-form-errors [model]="model"></app-form-errors>
+</div>
+
+
+<div *ngIf="type === 'dropdown'" ngbDropdown class="d-inline-block">
+  <button class="btn btn-outline-{{color}}" ngbDropdownToggle>{{ resolveText(selected) || model.label }}</button>
+  <div ngbDropdownMenu>
+    <button *ngFor="let option of model.options" (click)="onDropdownClick(option)" ngbDropdownItem>{{ resolveText(option) }}</button>
+  </div>
+</div>

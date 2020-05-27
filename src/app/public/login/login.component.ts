@@ -3,7 +3,7 @@ import { LoginModel } from './login.model';
 import { LoginState } from './login.state';
 import { Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
-import { AppState } from '../app.state';
+import { AppState } from 'src/app/app.state';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

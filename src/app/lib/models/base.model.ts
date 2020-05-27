@@ -1,9 +1,9 @@
 import { FormGroup, AbstractControl, ValidatorFn, AsyncValidatorFn } from '@angular/forms';
 import { BaseField } from './base-field.model';
-import { SubscriptionLike } from 'rxjs';
+import { SubscriptionLike, Observable } from 'rxjs';
 export type FormControls = { [key: string]: AbstractControl };
 
-export class BaseModel {
+export class BaseModel<T> {
   private group: FormGroup;
   protected subscriptions: SubscriptionLike[] = [];
 
@@ -20,7 +20,7 @@ export class BaseModel {
     return controls;
   }
 
-  get valueChanges$() {
+  get valueChanges$(): Observable<T> {
     return this.group.valueChanges;
   }
 

@@ -1,5 +1,7 @@
 <div class="btn-group btn-group-toggle" data-toggle="buttons">
-  <label *ngFor="let option of model.options" class="btn btn-secondary" [class.active]="isActive(option)">
+  <label *ngFor="let option of model.options" class="btn btn-{{color}}" [class.active]="isActive(option)">
+    <app-icon size="0.75rem" *ngIf="option.leftIcon" [icon]="option.leftIcon"></app-icon>
     <input [formControl]="model" type="radio" [value]="resolveValue(option)"> {{ resolveText(option) }}
+    <app-icon size="0.75rem" *ngIf="option.rightIcon" [icon]="option.rightIcon"></app-icon>
   </label>
 </div>

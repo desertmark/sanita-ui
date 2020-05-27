@@ -1,10 +1,17 @@
 import { BaseModel } from 'src/app/lib/models/base.model';
 import { TextFieldModel } from 'src/app/lib/models/text-field.model';
 import { RadioToggleModel } from 'src/app/lib/models/radio-toggle.model';
+import { SelectFieldModel } from 'src/app/lib/models/select-field.model';
 const SEARCH_BY_CODE_LABEL = 'Buscar por codigo...';
 const SEARCH_BY_DESCRIPTION_LABEL = 'Buscar por descripcion...';
 const SEARCH_BY_CATEOGORY_LABEL = 'Buscar por rubro...';
-export class ArticlesModel extends BaseModel {
+export interface ArticlesValues {
+  searchField: string;
+  searchByField: string;
+  orderByField: string;
+  sortOrderField: string;
+}
+export class ArticlesModel extends BaseModel<ArticlesValues> {
   constructor() {
     super();
     this.init();
@@ -36,6 +43,19 @@ export class ArticlesModel extends BaseModel {
       { text: 'Descripcion', value: 'description' },
       { text: 'Rubro', value: 'category.description' }
     ],
-    textGetter: option => option.text,
+  });
+
+  orderByField = new SelectFieldModel<any>({
+    label: 'Ordenar por',
+    options: [
+    ]
+  });
+
+  sortOrderField = new RadioToggleModel<any>({
+    defaultValue: 'asc',
+    options: [
+      { text: 'Asc', value: 'asc', rightIcon: 'chevronUp' },
+      { text: 'Desc', value: 'desc', rightIcon: 'chevronDown' }
+    ],
   });
 }

@@ -7,6 +7,7 @@ export interface LoadArticlesFilter {
   description?: string;
   codeString?: string;
   category?: string;
+  sort?: string;
 }
 class State {
   loadingArticles = new LoadingUtil();

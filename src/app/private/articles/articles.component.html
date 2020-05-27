@@ -10,22 +10,30 @@
   ">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-6 col-sm-12 d-flex flex-column justify-content-center">
+      <div class="col-md-4 col-sm-12 mb-2">
         <app-text-field [model]="form.searchField"></app-text-field>
       </div>
-      <div class="col-md-6 col-sm-12 d-flex flex-column justify-content-center mt-2">
-        <app-radio-toggle [model]="form.searchByField"></app-radio-toggle>
+      <div class="col-md-4 col-sm-8 d-flex align-items-center">
+        <app-radio-toggle color="secondary" [model]="form.searchByField"></app-radio-toggle>
+      </div>
+      <div class="col-md-4 col-sm-4 justify-content-end d-flex align-items-center">
+        <app-select-field type="dropdown" [model]="form.orderByField"></app-select-field>
+        <app-radio-toggle color="secondary" class="ml-1" [model]="form.sortOrderField"></app-radio-toggle>
       </div>
     </div>
   </div>
-    <div class="d-flex justify-content-center flex-column">
+    <div class="d-flex justify-content-center flex-column mt-2">
       <ng-template #loadingTemplate>
         <app-spinner [overlay]="true"></app-spinner>
       </ng-template>
-      <div class="articles-list card-group">
+      <div *ngIf="false; else articleList" class="articles-list card-group">
         <app-article-card *ngFor="let article of articlesState.articles$ | async" [article]="article"></app-article-card>
       </div>
       <button class="btn btn-link" (click)="viewMore()">Ver mas</button>
     </div>
   </app-loading-container>
 </div>
+
+<ng-template #articleList>
+  <app-article-list></app-article-list>
+</ng-template>

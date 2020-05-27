@@ -1,5 +1,17 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { faCoffee, IconDefinition, faLock, faEye, faCircleNotch, faUserCircle, faCreditCard, faMoneyBillWave, faBox, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faCoffee,
+  IconDefinition,
+  faLock,
+  faEye,
+  faCircleNotch,
+  faUserCircle,
+  faCreditCard,
+  faMoneyBillWave,
+  faBox,
+  faSearch,
+  faChevronUp,
+  faChevronDown,
+} from '@fortawesome/free-solid-svg-icons';
 
 const ICON_MAP = {
   coffee: faCoffee,
@@ -11,6 +23,8 @@ const ICON_MAP = {
   moneyBillWave: faMoneyBillWave,
   box: faBox,
   search: faSearch,
+  chevronUp: faChevronUp,
+  chevronDown: faChevronDown,
 };
 
 
