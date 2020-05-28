@@ -51,6 +51,22 @@ export interface ArticleResponse {
   totalSize: number;
 }
 
+export interface PatchArticlesRequest {
+  body: {
+    from: string;
+    to: string;
+    fields: {
+      price?: {
+        percentage?: number;
+        absolute?: number;
+      },
+      utility?: number;
+      vat?: number;
+      transport?: number;
+      card?: number;
+    },
+  };
+}
 
 @Injectable()
 export class ArticlesApi extends BaseApi {
@@ -77,6 +93,10 @@ export class ArticlesApi extends BaseApi {
 
   getArticlesById(): Observable<ArticleResponse> {
     return this.http$.get<ArticleResponse>(this.url(`/users`));
+  }
+
+  patchArticles(options: PatchArticlesRequest) {
+    return this.http$.patch(this.url('/articles'), options.body);
   }
 
 }

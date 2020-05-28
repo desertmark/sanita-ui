@@ -20,20 +20,28 @@ export class BaseModel<T> {
     return controls;
   }
 
+  get values(): T {
+    return this.group.value as T;
+  }
+
   get valueChanges$(): Observable<T> {
     return this.group.valueChanges;
   }
 
   get valid(): boolean {
-    return this.group.valid;
+    return this.group?.valid;
   }
 
   get dirty(): boolean {
-    return this.group.dirty;
+    return this.group?.dirty;
   }
 
   get touch(): boolean {
-    return this.group.touched;
+    return this.group?.touched;
+  }
+
+  reset() {
+    this.group.reset();
   }
 
   destroy() {

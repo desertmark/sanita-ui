@@ -3,4 +3,46 @@
     <app-view-header color="info" title="Actualizacion Masiva" subtitleColor="secondary"
       subtitle="Actualice precio y otros valores muchos productos de forma simultanea"></app-view-header>
   </div>
+
+  <app-loading-container class="d-flex justify-content-center" [isLoading]="bulkEditState.isLoadingBulkEdit$ | async">
+    <ng-template #loadingTemplate>
+      <app-spinner [overlay]="true"></app-spinner>
+    </ng-template>
+    <div class="d-flex justify-content-center">
+      <div class="bulk-edit__card card border-info">
+        <div class="card-body">
+          <div class="container-fluid">
+            <div class="form-row">
+              <app-text-field class="col-md-6" [model]="form.codeStartField"></app-text-field>
+              <app-text-field class="col-md-6" [model]="form.codeEndField"></app-text-field>
+            </div>
+            <label>Precio</label>
+            <div class="border-info card w-100">
+              <div class="card-body">
+                <div class="form-row">
+                  <app-radio-toggle class="col-md" color="secondary" [model]="form.typeOfIncreaseField"></app-radio-toggle>
+                  <app-number-field class="col-md mt-2" *ngIf="form.typeOfIncreaseField.value === 'percentage'" [model]="form.percentagePriceField"></app-number-field>
+                  <app-number-field class="col-md mt-2" *ngIf="form.typeOfIncreaseField.value === 'absolute'" [model]="form.absolutePriceField"></app-number-field>
+                </div>
+              </div>
+            </div>
+  
+            <div class="form-row">
+              <app-number-field class="col mt-2" [model]="form.utilityField"></app-number-field>
+            </div>
+  
+            <div class="form-row">
+              <app-number-field class="col-md mt-2" [model]="form.vatField"></app-number-field>
+              <app-number-field class="col-md mt-2" [model]="form.transportField"></app-number-field>
+              <app-number-field class="col-md mt-2" [model]="form.cardField"></app-number-field>
+            </div>
+  
+            <div class="form-row">
+              <button (click)="update()" [disabled]="!form.valid" class="btn btn-block btn-info">Actualizar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </app-loading-container>
 </div>

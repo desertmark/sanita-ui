@@ -31,7 +31,7 @@ export class ArticlesState {
     return this.state.articles$;
   }
 
-  constructor(private userApi: ArticlesApi) {
+  constructor(private articlesApi: ArticlesApi) {
   }
 
   loadArticles(filter?: LoadArticlesFilter): void {
@@ -42,7 +42,7 @@ export class ArticlesState {
         ...filter,
       }
     };
-    const sub = this.userApi.getArticles(req).subscribe({
+    const sub = this.articlesApi.getArticles(req).subscribe({
       next: res => {
         this.state.articlesPagination = res;
         this.state.articles$.next(this.state.articlesPagination.items);

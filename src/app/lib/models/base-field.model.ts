@@ -11,7 +11,7 @@ export interface BaseFieldAttr<T> {
 export class BaseField<T> extends FormControl {
   label: string;
   placeholder: string;
-  constructor(attrs: BaseFieldAttr<T>) {
+  constructor(private attrs: BaseFieldAttr<T>) {
     super({ value: attrs.defaultValue, disabled: attrs.disabled }, attrs.validatorOrOpts, attrs.asyncValidator);
     this.label = attrs.label || '';
     this.placeholder = attrs.placeholder || '';
@@ -22,5 +22,9 @@ export class BaseField<T> extends FormControl {
   }
   get valueChanges$(): Observable<T> {
     return this.valueChanges;
+  }
+
+  reset() {
+    super.reset(this.attrs?.defaultValue);
   }
 }

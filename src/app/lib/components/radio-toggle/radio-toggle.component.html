@@ -1,3 +1,6 @@
+<div>
+  <label *ngIf="model.label">{{model.label}}</label>
+</div>
 <div class="btn-group btn-group-toggle" data-toggle="buttons">
   <label *ngFor="let option of model.options" class="btn btn-{{color}}" [class.active]="isActive(option)">
     <app-icon size="0.75rem" *ngIf="option.leftIcon" [icon]="option.leftIcon"></app-icon>

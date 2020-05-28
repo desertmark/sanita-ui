@@ -13,6 +13,7 @@ import { LoadingContainerComponent } from './loading-container/loading-container
 import { ViewHeaderComponent } from './view-header/view-header.component';
 import { RadioToggleComponent } from './radio-toggle/radio-toggle.component';
 import { SelectComponent } from './select/select-field.component';
+import { NumberFieldComponent } from './number-field/number-field.component';
 
 const COMPONENTS = [
   HeaderComponent,
@@ -25,6 +26,7 @@ const COMPONENTS = [
   ViewHeaderComponent,
   RadioToggleComponent,
   SelectComponent,
+  NumberFieldComponent,
 ];
 
 @NgModule({

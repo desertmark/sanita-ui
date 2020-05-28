@@ -14,6 +14,8 @@ import { faCoffee,
   faSignOutAlt,
   faThList,
   faSync,
+  faDollarSign,
+  faPercentage,
 } from '@fortawesome/free-solid-svg-icons';
 
 const ICON_MAP = {
@@ -31,6 +33,8 @@ const ICON_MAP = {
   singOutAlt: faSignOutAlt,
   thList: faThList,
   sync: faSync,
+  dollarSign: faDollarSign,
+  percentage: faPercentage,
 };
 
 

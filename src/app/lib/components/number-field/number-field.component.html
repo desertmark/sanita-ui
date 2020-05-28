@@ -1,0 +1,18 @@
+<div class="form-group text-left">
+    <label>{{model.label}}</label>
+      <div class="input-group mb-2 mr-sm-2">
+        <div *ngIf="model.leftIcon" class="input-group-prepend">
+          <div class="input-group-text">
+            <app-icon [icon]="model.leftIcon"></app-icon>
+          </div>
+        </div>
+        <input
+          [formControl]="model"
+          [placeholder]="model.placeholder"
+          [class.is-invalid]="model.showError"
+          class="form-control"
+          type="number"
+          >
+      </div>
+    <app-form-errors [model]="model"></app-form-errors>
+  </div>

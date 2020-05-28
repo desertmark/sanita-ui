@@ -4,7 +4,7 @@ import { EnvConfig, EnvService } from '../env.service';
 
 @Injectable()
 export abstract class BaseApi {
-  get baseUrl(): string {
+  private get baseUrl(): string {
     return this.envService.envConfig.baseUrl;
   }
 
