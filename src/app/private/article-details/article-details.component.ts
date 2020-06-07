@@ -9,7 +9,7 @@ import { ArticlesState } from '../articles/articles.state';
   styleUrls: ['./article-details.component.scss']
 })
 export class ArticleDetailsComponent implements OnInit {
-  form = new ArticleDetailsModel(this.articlesState.categoreis$, this.articlesState.isLoadingCategories$);
+  form = new ArticleDetailsModel(this.articlesState.categories$, this.articlesState.isLoadingCategories$);
 
   headerMap = {
     create: {
@@ -35,6 +35,13 @@ export class ArticleDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // const sub = this.articlesState.categories$.subscribe(
+    //   res => this.form.categoryIdField.options = res,
+    // );
+  }
+
+  filterCategories(filter: string) {
+    this.articlesState.loadCategories(filter);
   }
 
   private getHeaderMapItem(): string {

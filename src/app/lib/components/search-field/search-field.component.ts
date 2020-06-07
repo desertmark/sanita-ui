@@ -1,24 +1,34 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { SearchFieldModel } from '../../models/search-field.model';
-import { Observable } from 'rxjs';
+import { Observable, Subject, SubscriptionLike } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search-field',
   templateUrl: './search-field.component.html',
   styleUrls: ['./search-field.component.scss']
 })
-export class SearchFieldComponent implements OnInit {
+export class SearchFieldComponent implements OnInit, OnDestroy {
   @Input() model: SearchFieldModel<any>;
-  @ViewChild('searchInput') searchInput: ElementRef<HTMLInputElement>;
-  constructor() { }
+  @Output() search = new EventEmitter<string>();
+  private debouncer = new Subject<string>();
+  private subscriptions: SubscriptionLike[] = [];
+  constructor() {
+  }
   searching = false;
   ngOnInit(): void {
+    const sub = this.debouncer.pipe(debounceTime(this.model.searchDelay)).subscribe(
+      text => this.search.emit(text),
+    );
+    this.subscriptions.push(sub);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   onFocus() {
     this.searching = true;
-    this.searchInput.nativeElement.focus();
-    this.searchInput.nativeElement.click();
   }
 
   get isSyncOptions(): boolean {
@@ -45,6 +55,10 @@ export class SearchFieldComponent implements OnInit {
 
   onBlur() {
     setTimeout(() => this.searching = false, 200);
+  }
+
+  onSearch(text) {
+    this.debouncer.next(text);
   }
 
 }

@@ -105,5 +105,6 @@ export class ArticleDetailsModel extends BaseModel<ArticlesDetailsValues> {
     textGetter: category => category?.description,
     valueGetter: category => category?._id,
     leftIcon: 'search',
+    searchDelay: 500,
   });
 }

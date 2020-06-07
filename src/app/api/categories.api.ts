@@ -20,7 +20,7 @@ export interface Category {
 @Injectable()
 export class CategoriesApi extends BaseApi {
 
-  getCategories(options: GetCategoryRequest): Observable<Category> {
+  getCategories(options: GetCategoryRequest): Observable<Category[]> {
     const req = {
       params: {
         q: options.query.q,
@@ -28,7 +28,7 @@ export class CategoriesApi extends BaseApi {
         page: options.query.page.toString(),
       }
     };
-    return this.http$.get<Category>(this.url(`/categories/`), req);
+    return this.http$.get<Category[]>(this.url(`/categories/`), req);
   }
 
 }

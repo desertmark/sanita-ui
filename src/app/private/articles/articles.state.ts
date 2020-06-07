@@ -17,7 +17,7 @@ class State {
 
   articles$ = new BehaviorSubject<Article[]>(undefined);
   articlesPagination: PaginatedResponse<Article>;
-  categories$ = new BehaviorSubject<Category>(undefined);
+  categories$ = new BehaviorSubject<Category[]>(undefined);
 }
 
 @Injectable()
@@ -31,14 +31,14 @@ export class ArticlesState {
     return this.state.loadingNextArticles.isLoading$;
   }
   get isLoadingCategories$(): Observable<boolean> {
-    return this.state.loadingNextArticles.isLoading$;
+    return this.state.loadingCategories.isLoading$;
   }
 
   get articles$(): BehaviorSubject<Article[]> {
     return this.state.articles$;
   }
-  get categoreis$(): BehaviorSubject<Article[]> {
-    return this.state.articles$;
+  get categories$(): BehaviorSubject<Category[]> {
+    return this.state.categories$;
   }
 
   constructor(private articlesApi: ArticlesApi, private categoriesApi: CategoriesApi) {
@@ -72,7 +72,8 @@ export class ArticlesState {
     const req = {
       query: {
         q: filter,
-        size: 10,
+        size: 5,
+        page: 0,
       },
     };
     const sub = this.categoriesApi.getCategories(req).subscribe(

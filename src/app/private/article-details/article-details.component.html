@@ -18,7 +18,7 @@
 
         <div class="form-row">
           <!-- Search Category field -->
-          <app-search-field class="col-md-6" [model]="form.categoryIdField"></app-search-field>
+          <app-search-field (search)="filterCategories($event)" class="col-md-6" [model]="form.categoryIdField"></app-search-field>
         </div>
 
         <div class="form row">
