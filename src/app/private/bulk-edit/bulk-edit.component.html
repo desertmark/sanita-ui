@@ -34,14 +34,32 @@
         </div>
       </div>
     </div>
-
-
-
   </app-loading-container>
 </div>
 
 <ng-template #fileUpload>
-  <h1>file upload template</h1>
+  <!-- PROGRESS BAR -->
+  <ng-container *ngIf="(bulkEditState.status$ | async)?.inProgress; else upload">
+    <div class="alert alert-warning">
+      <h4 class="alert-heading">Actualizando</h4>
+      <p>Hay un proceso de actualizacion en curso.</p>
+      <hr>
+      <p class="mb-0">Por favor espere que el proceso actual finalice antes de comenzar uno nuevo.</p>
+    </div>
+    <ngb-progressbar
+      type="warning"
+      textType="dark" 
+      [value]="formatStatus((bulkEditState.status$ | async).completed)"
+      [showValue]="true">
+    </ngb-progressbar>
+  </ng-container>
+  <!-- UPLOAD FILE FORM -->
+  <ng-template #upload>
+    <app-file-field [model]="form.fileField"></app-file-field>
+    <div class="d-flex justify-content-end">
+      <button [disabled]="form.fileField.invalid" (click)="uploadFile()" class="btn btn-block btn-info">Subir</button>
+    </div>
+  </ng-template>
 </ng-template>
 
 <ng-template #codeRange>

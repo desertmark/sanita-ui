@@ -1,0 +1,19 @@
+<div class="form-group text-left">
+  <label *ngIf="model.label">{{model.label}}</label>
+  <div class="input-group mb-3">
+    <div *ngIf="model.leftLabel" class="input-group-prepend">
+      <span class="input-group-text" id="inputGroupFileAddon01">{{ model.leftLabel }}</span>
+    </div>
+    <div class="custom-file">
+      <input
+        (change)="onChange($event)"
+        (blur)="onBlur()"
+        type="file" 
+        class="custom-file-input"
+        [class.is-invalid]="model.showError"
+      >
+      <label class="custom-file-label">{{ model?.value?.name || model.placeholder }} </label>
+    </div>
+  </div>
+  <app-form-errors [model]="model"></app-form-errors>
+</div>

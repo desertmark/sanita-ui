@@ -3,4 +3,6 @@
   <p *ngIf="model.errors?.min">Ingrese un valor superior</p>
   <p *ngIf="model.errors?.max">Ingrese un valor menor</p>
   <p *ngIf="model.errors?.email">Ingrese un email valido</p>
+  <p *ngIf="model.errors?.size">{{ model.errors?.size }}</p>
+  <p *ngIf="model.errors?.mimeTypes">{{ model.errors?.mimeTypes }}</p>
 </div>

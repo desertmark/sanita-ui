@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { BaseApi } from './base.api';
 import { PaginatedRequest, PaginatedResponse } from '../lib/util/pagination.util';
 import { map } from 'rxjs/operators';
+import { HttpHeaders } from '@angular/common/http';
 export interface Discount {
   _id: string;
   description: string;
@@ -68,6 +69,19 @@ export interface PatchArticlesRequest {
   };
 }
 
+export interface PatchArticlesByFileRequest {
+  form?: {
+    bulk: File;
+  };
+}
+
+export interface GetStatusResponse {
+  inProgress: boolean;
+  completed: number;
+  total: number;
+  processed: number;
+}
+
 @Injectable()
 export class ArticlesApi extends BaseApi {
 
@@ -97,6 +111,16 @@ export class ArticlesApi extends BaseApi {
 
   patchArticles(options: PatchArticlesRequest) {
     return this.http$.patch(this.url('/articles'), options.body);
+  }
+
+  patchArticlesByfile(options: PatchArticlesByFileRequest) {
+    const form = new FormData();
+    form.append('bulk', options.form.bulk);
+    return this.http$.patch(this.url('/articles'), form);
+  }
+
+  getStatus(): Observable<GetStatusResponse> {
+    return this.http$.get<GetStatusResponse>(this.url('/articles/status'));
   }
 
 }

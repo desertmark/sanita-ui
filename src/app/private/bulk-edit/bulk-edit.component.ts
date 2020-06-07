@@ -11,7 +11,11 @@ import { SubscriptionLike } from 'rxjs';
 export class BulkEditComponent implements OnDestroy {
   form = new BulkEditModel();
   subscriptions: SubscriptionLike[] = [];
-  constructor(public bulkEditState: BulkEditState) { console.log(this.form); }
+
+  constructor(public bulkEditState: BulkEditState) {
+    this.initFileUpload();
+    this.bulkEditState.startPollingStatus();
+  }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(s => s.unsubscribe());
@@ -23,6 +27,27 @@ export class BulkEditComponent implements OnDestroy {
       () => this.form.reset(),
     );
     this.subscriptions.push(sub);
+  }
+
+  uploadFile() {
+    const sub = this.bulkEditState.updateArticlesByFile(this.form.fileField.value).subscribe(
+      () => {
+        this.form.fileField.reset();
+        this.bulkEditState.startPollingStatus();
+      },
+    );
+    this.subscriptions.push(sub);
+  }
+
+  private initFileUpload() {
+    const sub = this.form.fileField.valueChanges$.subscribe(
+      value => console.log(value),
+    );
+    this.subscriptions.push(sub);
+  }
+
+  formatStatus(status: number) {
+    return parseFloat(status.toFixed(2));
   }
 
 }

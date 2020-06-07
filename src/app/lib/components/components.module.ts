@@ -14,6 +14,7 @@ import { ViewHeaderComponent } from './view-header/view-header.component';
 import { RadioToggleComponent } from './radio-toggle/radio-toggle.component';
 import { SelectComponent } from './select/select-field.component';
 import { NumberFieldComponent } from './number-field/number-field.component';
+import { FileFieldComponent } from './file-field/file-field.component';
 
 const COMPONENTS = [
   HeaderComponent,
@@ -27,6 +28,7 @@ const COMPONENTS = [
   RadioToggleComponent,
   SelectComponent,
   NumberFieldComponent,
+  FileFieldComponent,
 ];
 
 @NgModule({
