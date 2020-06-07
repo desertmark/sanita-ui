@@ -24,6 +24,10 @@ export class BaseField<T> extends FormControl {
     return this.valueChanges;
   }
 
+  setValueNoEmit(value: T) {
+    this.setValue(value, { emitEvent: false});
+  }
+
   reset() {
     super.reset(this.attrs?.defaultValue);
   }

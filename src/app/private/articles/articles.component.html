@@ -10,6 +10,14 @@
   ">
   <div class="container-fluid">
     <div class="row">
+      <div class="col">
+        <a [routerLink]="['/private/articles/create']" class="btn btn-block btn-success text-light">
+          <app-icon icon="plus"></app-icon>
+          Nuevo Producto
+        </a>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-md-4 col-sm-12 mb-2">
         <app-text-field [model]="form.searchField"></app-text-field>
       </div>

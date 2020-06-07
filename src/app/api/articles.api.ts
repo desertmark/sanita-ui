@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, interval } from 'rxjs';
 import { BaseApi } from './base.api';
 import { PaginatedRequest, PaginatedResponse } from '../lib/util/pagination.util';
 import { map } from 'rxjs/operators';
@@ -79,6 +79,24 @@ export interface GetStatusResponse {
   processed: number;
 }
 
+export interface PostArticleRequest {
+  body: {
+    codeString: string;
+    listPrice: number;
+    categoryId: string;
+    utility: number;
+    dolar: number;
+    description: string;
+    vat?: number;
+    transport?: number;
+    card?: number;
+    cost?: number;
+    price?: number;
+    cardPrice?: number;
+    discounts?: Discount[];
+  };
+}
+
 @Injectable()
 export class ArticlesApi extends BaseApi {
 
@@ -114,6 +132,10 @@ export class ArticlesApi extends BaseApi {
     const form = new FormData();
     form.append('bulk', options.form.bulk);
     return this.http$.patch(this.url('/articles'), form);
+  }
+
+  postArticle(options: PostArticleRequest) {
+    return this.http$.post(this.url('/articles'), options.body);
   }
 
   getStatus(): Observable<GetStatusResponse> {

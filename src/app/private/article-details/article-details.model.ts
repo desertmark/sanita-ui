@@ -4,7 +4,9 @@ import { Validators } from '@angular/forms';
 import { NumberFieldModel } from 'src/app/lib/models/number-field.model';
 import { SearchFieldModel } from 'src/app/lib/models/search-field.model';
 import { Category, CategoriesApi } from 'src/app/api/categories.api';
-import { Observable } from 'rxjs';
+import { Observable, merge } from 'rxjs';
+import { ArticlesUtil } from '../articles/articles.util';
+import { ArticlesState } from '../articles/articles.state';
 
 export interface ArticlesDetailsValues {
   codeStringField: string;
@@ -28,6 +30,7 @@ export class ArticleDetailsModel extends BaseModel<ArticlesDetailsValues> {
   ) {
     super();
     this.init();
+    this.initFields();
   }
   codeStringField = new TextFieldModel({
     label: 'Codigo',
@@ -56,6 +59,7 @@ export class ArticleDetailsModel extends BaseModel<ArticlesDetailsValues> {
   utilityField = new NumberFieldModel({
     label: 'Utilidad',
     placeholder: '0',
+    defaultValue: 0,
     validatorOrOpts: [Validators.required, Validators.min(0)],
     leftIcon: 'percentage',
   });
@@ -68,6 +72,7 @@ export class ArticleDetailsModel extends BaseModel<ArticlesDetailsValues> {
   vatField = new NumberFieldModel({
     label: 'IVA',
     placeholder: '21',
+    defaultValue: 21,
     validatorOrOpts: [Validators.min(0)],
     leftIcon: 'percentage',
   });
@@ -82,10 +87,12 @@ export class ArticleDetailsModel extends BaseModel<ArticlesDetailsValues> {
     placeholder: '14',
     validatorOrOpts: [Validators.min(0)],
     leftIcon: 'percentage',
+    defaultValue: 14,
   });
   cardField = new NumberFieldModel({
     label: 'Recargo tarjeta',
     placeholder: '23',
+    defaultValue: 23,
     validatorOrOpts: [Validators.min(0)],
     leftIcon: 'percentage',
   });
@@ -107,4 +114,18 @@ export class ArticleDetailsModel extends BaseModel<ArticlesDetailsValues> {
     leftIcon: 'search',
     searchDelay: 500,
   });
+
+  initFields() {
+    const sub = this.valueChanges$.subscribe(
+      values => {
+        const cost = ArticlesUtil.calcCost(values.listPriceField, values.vatField / 100);
+        const price = ArticlesUtil.calcPrice(cost, values.utilityField / 100, values.transportField / 100);
+        const cardPrice = ArticlesUtil.calcCardPrice(price, values.cardField / 100);
+        this.costField.setValueNoEmit(cost);
+        this.priceField.setValueNoEmit(price);
+        this.cardPriceField.setValueNoEmit(cardPrice);
+      }
+    );
+    this.subscriptions.push(sub);
+  }
 }

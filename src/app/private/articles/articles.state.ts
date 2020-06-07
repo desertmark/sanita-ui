@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, interval, SubscriptionLike } from 'rxjs';
+import { BehaviorSubject, Observable, interval, SubscriptionLike, Subscriber } from 'rxjs';
 import { LoadingUtil } from 'src/app/lib/util/loading.util';
 import { ArticlesApi, Article, GetArticlesRequest } from 'src/app/api/articles.api';
 import { PaginatedResponse } from 'src/app/lib/util/pagination.util';
 import { CategoriesApi, Category } from 'src/app/api/categories.api';
+import { ArticlesDetailsValues } from '../article-details/article-details.model';
+import { registerLocaleData } from '@angular/common';
 export interface LoadArticlesFilter {
   description?: string;
   codeString?: string;
@@ -14,6 +16,7 @@ class State {
   loadingArticles = new LoadingUtil();
   loadingNextArticles = new LoadingUtil();
   loadingCategories = new LoadingUtil();
+  loadingCreateArticle = new LoadingUtil();
 
   articles$ = new BehaviorSubject<Article[]>(undefined);
   articlesPagination: PaginatedResponse<Article>;
@@ -32,6 +35,9 @@ export class ArticlesState {
   }
   get isLoadingCategories$(): Observable<boolean> {
     return this.state.loadingCategories.isLoading$;
+  }
+  get isLoadingCreateArticle$(): Observable<boolean> {
+    return this.state.loadingCreateArticle.isLoading$;
   }
 
   get articles$(): BehaviorSubject<Article[]> {
@@ -80,6 +86,32 @@ export class ArticlesState {
       res => this.state.categories$.next(res),
     );
     this.state.loadingCategories.waitFor(sub);
+  }
+
+  createArticle(article: ArticlesDetailsValues) {
+    return new Observable(subscriber => {
+      const sub = this.articlesApi.postArticle({
+        body: {
+          codeString: article.codeStringField,
+          listPrice: article.listPriceField,
+          categoryId: article.categoryIdField,
+          utility: article.utilityField,
+          dolar: 1,
+          description: article.descriptionField,
+          vat: article.vatField,
+          transport: article.transportField,
+          card: article.cardField,
+          cost: article.costField,
+          price: article.priceField,
+          cardPrice: article.cardPriceField,
+        }
+      }).subscribe({
+        next: () => subscriber.next(),
+        error: error => subscriber.error(error),
+        complete: () => subscriber.complete(),
+      });
+      this.state.loadingArticles.waitFor(sub);
+    });
   }
 
 }

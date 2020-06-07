@@ -1,36 +1,47 @@
 <div class="articles-details">
   <app-view-header color="success" [title]="title" subtitleColor="dark" [subtitle]="subtitle"></app-view-header>
 
-  <div class="d-flex justify-content-center p-5 container-fluid">
-    <div class="card  border-success">
-      <div class="card-body">
-        <div class="form-row">
-          <app-text-field  class="col-md" [model]="form.codeStringField"></app-text-field>
-          <app-number-field class="col-md" [model]="form.listPriceField"></app-number-field>
-          <app-number-field class="col-md" [model]="form.utilityField"></app-number-field>
-        </div>
-
-        <div class="form row">
-          <app-number-field class="col-md" [model]="form.costField"></app-number-field>
-          <app-number-field class="col-md" [model]="form.priceField"></app-number-field>
-          <app-number-field class="col-md" [model]="form.cardPriceField"></app-number-field>
-        </div>
-
-        <div class="form-row">
-          <!-- Search Category field -->
-          <app-search-field (search)="filterCategories($event)" class="col-md-6" [model]="form.categoryIdField"></app-search-field>
-        </div>
-
-        <div class="form row">
-          <app-text-field class="col" [model]="form.descriptionField"></app-text-field>
-        </div>
-
-        <div class="form row">
-          <app-number-field class="col-md" [model]="form.vatField"></app-number-field>
-          <app-number-field class="col-md" [model]="form.transportField"></app-number-field>
-          <app-number-field class="col-md" [model]="form.cardField"></app-number-field>
+  <app-loading-container>
+    <ng-template #loadingTemplate>
+      <app-spinner></app-spinner>
+    </ng-template>
+    <div class="d-flex justify-content-center p-5 container-fluid">
+      <div class="card  border-success">
+        <div class="card-body">
+          <div class="form-row">
+            <app-text-field  class="col-md" [model]="form.codeStringField"></app-text-field>
+            <app-number-field class="col-md" [model]="form.listPriceField"></app-number-field>
+            <app-number-field class="col-md" [model]="form.utilityField"></app-number-field>
+          </div>
+  
+          <div class="form-row">
+            <app-number-field class="col-md" [model]="form.costField"></app-number-field>
+            <app-number-field class="col-md" [model]="form.priceField"></app-number-field>
+            <app-number-field class="col-md" [model]="form.cardPriceField"></app-number-field>
+          </div>
+  
+          <div class="form-row">
+            <!-- Search Category field -->
+            <app-search-field (search)="filterCategories($event)" class="col-md-6" [model]="form.categoryIdField"></app-search-field>
+          </div>
+  
+          <div class="form-row">
+            <app-text-field class="col" [model]="form.descriptionField"></app-text-field>
+          </div>
+  
+          <div class="form-row">
+            <app-number-field class="col-md" [model]="form.vatField"></app-number-field>
+            <app-number-field class="col-md" [model]="form.transportField"></app-number-field>
+            <app-number-field class="col-md" [model]="form.cardField"></app-number-field>
+          </div>
+  
+          <div class="form-row">
+            <button (click)="create()" class="btn btn-block btn-success">
+              {{ buttonText }}
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </app-loading-container>
 </div>

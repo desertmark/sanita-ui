@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ArticleDetailsModel } from './article-details.model';
 import { Route, ActivatedRoute } from '@angular/router';
 import { ArticlesState } from '../articles/articles.state';
@@ -8,17 +8,19 @@ import { ArticlesState } from '../articles/articles.state';
   templateUrl: './article-details.component.html',
   styleUrls: ['./article-details.component.scss']
 })
-export class ArticleDetailsComponent implements OnInit {
+export class ArticleDetailsComponent implements OnInit, OnDestroy {
   form = new ArticleDetailsModel(this.articlesState.categories$, this.articlesState.isLoadingCategories$);
 
   headerMap = {
     create: {
       title: 'Alta',
-      subtitle: 'Crea un nuevo producto en la base de datos.'
+      subtitle: 'Crea un nuevo producto en la base de datos.',
+      buttonText: 'Dar de alta el producto',
     },
     edit: {
       title: 'Editar',
-      subtitle: 'Edita los campos del producto y guarda los cambio en la base de datos.'
+      subtitle: 'Edita los campos del producto y guarda los cambio en la base de datos.',
+      buttonText: 'Editar producto',
     }
   };
 
@@ -31,13 +33,20 @@ export class ArticleDetailsComponent implements OnInit {
   }
 
   get subtitle(): string {
-    return this.headerMap.create.subtitle;
+    return this.headerMap[this.getHeaderMapItem()].subtitle;
+  }
+
+  get buttonText(): string {
+    return this.headerMap[this.getHeaderMapItem()].buttonText;
   }
 
   ngOnInit(): void {
-    // const sub = this.articlesState.categories$.subscribe(
-    //   res => this.form.categoryIdField.options = res,
-    // );
+  }
+
+  ngOnDestroy(): void {
+    if (this.form) {
+      this.form.destroy();
+    }
   }
 
   filterCategories(filter: string) {
@@ -45,8 +54,11 @@ export class ArticleDetailsComponent implements OnInit {
   }
 
   private getHeaderMapItem(): string {
-    // console.log(this.route.url);
     return 'create';
+  }
+
+  create() {
+    const sub = this.articlesState.createArticle(this.form.values).subscribe();
   }
 
 }
