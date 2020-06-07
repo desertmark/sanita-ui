@@ -4,16 +4,13 @@ import { BaseApi } from './base.api';
 import { PaginatedRequest, PaginatedResponse } from '../lib/util/pagination.util';
 import { map } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
+import { Category } from './categories.api';
 export interface Discount {
   _id: string;
   description: string;
   amount: number;
 }
 
-export interface Category {
-  _id: string;
-  description: string;
-}
 
 export interface GetArticlesRequest extends PaginatedRequest {
   query: {
@@ -31,7 +28,7 @@ export interface GetArticlesRequest extends PaginatedRequest {
 
 export interface Article {
   _id: string;
-  code: 85400146;
+  code: number;
   description: string;
   price: number;
   cost: number;

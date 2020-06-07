@@ -6,6 +6,7 @@ import { LibModule } from '../lib/lib.module';
 import { ArticlesComponent } from './articles/articles.component';
 import { SanitaComponentsModule } from '../sanita-components/sanita-components.module';
 import { BulkEditComponent } from './bulk-edit/bulk-edit.component';
+import { ArticleDetailsComponent } from './article-details/article-details.component';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { BulkEditComponent } from './bulk-edit/bulk-edit.component';
     ProfileComponent,
     ArticlesComponent,
     BulkEditComponent,
+    ArticleDetailsComponent,
   ],
   imports: [
     CommonModule,

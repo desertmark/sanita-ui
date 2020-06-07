@@ -6,6 +6,7 @@ import { UserApi } from './user.api';
 import { AuthInterceptor } from '../interceptors/auth.interceptor';
 import { ArticlesApi } from './articles.api';
 import { ErrorInterceptor } from '../interceptors/error.interceptor';
+import { CategoriesApi } from './categories.api';
 
 @NgModule({
   declarations: [],
@@ -14,6 +15,7 @@ import { ErrorInterceptor } from '../interceptors/error.interceptor';
     LoginApi,
     UserApi,
     ArticlesApi,
+    CategoriesApi,
     // interceptors
     {
       provide: HTTP_INTERCEPTORS,

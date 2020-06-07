@@ -1,0 +1,36 @@
+<div class="articles-details">
+  <app-view-header color="success" [title]="title" subtitleColor="dark" [subtitle]="subtitle"></app-view-header>
+
+  <div class="d-flex justify-content-center p-5 container-fluid">
+    <div class="card  border-success">
+      <div class="card-body">
+        <div class="form-row">
+          <app-text-field  class="col-md" [model]="form.codeStringField"></app-text-field>
+          <app-number-field class="col-md" [model]="form.listPriceField"></app-number-field>
+          <app-number-field class="col-md" [model]="form.utilityField"></app-number-field>
+        </div>
+
+        <div class="form row">
+          <app-number-field class="col-md" [model]="form.costField"></app-number-field>
+          <app-number-field class="col-md" [model]="form.priceField"></app-number-field>
+          <app-number-field class="col-md" [model]="form.cardPriceField"></app-number-field>
+        </div>
+
+        <div class="form-row">
+          <!-- Search Category field -->
+          <app-search-field class="col-md-6" [model]="form.categoryIdField"></app-search-field>
+        </div>
+
+        <div class="form row">
+          <app-text-field class="col" [model]="form.descriptionField"></app-text-field>
+        </div>
+
+        <div class="form row">
+          <app-number-field class="col-md" [model]="form.vatField"></app-number-field>
+          <app-number-field class="col-md" [model]="form.transportField"></app-number-field>
+          <app-number-field class="col-md" [model]="form.cardField"></app-number-field>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ProfileComponent } from './profile/profile.component';
 import { ArticlesComponent } from './articles/articles.component';
 import { BulkEditComponent } from './bulk-edit/bulk-edit.component';
+import { ArticleDetailsComponent } from './article-details/article-details.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'articles/bulk-edit',
     component: BulkEditComponent,
+  },
+  {
+    path: 'articles/create',
+    component: ArticleDetailsComponent,
   },
   {
     path: 'profile',
