@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { LoadingUtil } from 'src/app/lib/util/loading.util';
 import { UserResponse, UserApi } from './api/user.api';
 import { ResponseSubject } from './lib/models/response-subject.model';
@@ -12,7 +12,7 @@ export enum UserRolesEnum {
 
 class State {
   loadingCurrentUser = new LoadingUtil();
-  currentUser$ = new ResponseSubject<UserResponse>(undefined);
+  currentUser$ = new ResponseSubject<UserResponse>();
 }
 
 @Injectable()

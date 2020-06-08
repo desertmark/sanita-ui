@@ -79,21 +79,36 @@ export interface GetStatusResponse {
   processed: number;
 }
 
+export interface ArticleRequestBody {
+  codeString: string;
+  listPrice: number;
+  categoryId: string;
+  utility: number;
+  dolar: number;
+  description: string;
+  vat?: number;
+  transport?: number;
+  card?: number;
+  cost?: number;
+  price?: number;
+  cardPrice?: number;
+  discounts?: Discount[];
+};
+
 export interface PostArticleRequest {
-  body: {
-    codeString: string;
-    listPrice: number;
-    categoryId: string;
-    utility: number;
-    dolar: number;
-    description: string;
-    vat?: number;
-    transport?: number;
-    card?: number;
-    cost?: number;
-    price?: number;
-    cardPrice?: number;
-    discounts?: Discount[];
+  body: ArticleRequestBody;
+}
+
+export interface PatchArticleById {
+  params: {
+    id: string;
+  };
+  body: ArticleRequestBody;
+}
+
+export interface GetArticleByIdRequest {
+  params: {
+    id: string;
   };
 }
 
@@ -120,8 +135,8 @@ export class ArticlesApi extends BaseApi {
     );
   }
 
-  getArticlesById(): Observable<ArticleResponse> {
-    return this.http$.get<ArticleResponse>(this.url(`/users`));
+  getArticleById(options: GetArticleByIdRequest): Observable<Article> {
+    return this.http$.get<Article>(this.url(`/articles/${options.params.id}`));
   }
 
   patchArticles(options: PatchArticlesRequest) {
@@ -136,6 +151,10 @@ export class ArticlesApi extends BaseApi {
 
   postArticle(options: PostArticleRequest) {
     return this.http$.post(this.url('/articles'), options.body);
+  }
+
+  patchArticleById(options: PatchArticleById) {
+    return this.http$.patch(this.url(`/articles/${options.params.id}`), options.body);
   }
 
   getStatus(): Observable<GetStatusResponse> {

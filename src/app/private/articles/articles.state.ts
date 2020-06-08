@@ -5,7 +5,8 @@ import { ArticlesApi, Article, GetArticlesRequest } from 'src/app/api/articles.a
 import { PaginatedResponse } from 'src/app/lib/util/pagination.util';
 import { CategoriesApi, Category } from 'src/app/api/categories.api';
 import { ArticlesDetailsValues } from '../article-details/article-details.model';
-import { registerLocaleData } from '@angular/common';
+import { ResponseSubject } from 'src/app/lib/models/response-subject.model';
+import { ArticlesUtil } from './articles.util';
 export interface LoadArticlesFilter {
   description?: string;
   codeString?: string;
@@ -15,14 +16,16 @@ export interface LoadArticlesFilter {
 class State {
   loadingArticles = new LoadingUtil();
   loadingNextArticles = new LoadingUtil();
+  loadingCurrentArticle = new LoadingUtil();
   loadingCategories = new LoadingUtil();
   loadingCreateArticle = new LoadingUtil();
+  loadingEditArticle = new LoadingUtil();
 
   articles$ = new BehaviorSubject<Article[]>(undefined);
   articlesPagination: PaginatedResponse<Article>;
   categories$ = new BehaviorSubject<Category[]>(undefined);
 
-  currentArticle: Article;
+  currentArticle$ = new ResponseSubject<Article>();
 }
 
 @Injectable()
@@ -35,11 +38,17 @@ export class ArticlesState {
   get isLoadingNextArticles$(): Observable<boolean> {
     return this.state.loadingNextArticles.isLoading$;
   }
+  get isLoadingCurrentArticle$(): Observable<boolean> {
+    return this.state.loadingCurrentArticle.isLoading$;
+  }
   get isLoadingCategories$(): Observable<boolean> {
     return this.state.loadingCategories.isLoading$;
   }
   get isLoadingCreateArticle$(): Observable<boolean> {
     return this.state.loadingCreateArticle.isLoading$;
+  }
+  get isLoadingEditArticle$(): Observable<boolean> {
+    return this.state.loadingEditArticle.isLoading$;
   }
 
   get articles$(): BehaviorSubject<Article[]> {
@@ -49,11 +58,8 @@ export class ArticlesState {
     return this.state.categories$;
   }
 
-  get currentArticle(): Article {
-    return this.state.currentArticle;
-  }
-  set currentArticle(val: Article) {
-    this.state.currentArticle = val;
+  get currentArticle$(): ResponseSubject<Article> {
+    return this.state.currentArticle$;
   }
 
   constructor(private articlesApi: ArticlesApi, private categoriesApi: CategoriesApi) {
@@ -83,6 +89,18 @@ export class ArticlesState {
     this.state.loadingNextArticles.waitFor(sub);
   }
 
+  loadCurrentArticle(articleId: string) {
+    const req = {
+      params: {
+        id: articleId
+      }
+    };
+    const sub = this.articlesApi.getArticleById(req).subscribe({
+      next: res => this.state.currentArticle$.next(res),
+    });
+    this.state.loadingCurrentArticle.waitFor(sub);
+  }
+
   loadCategories(filter: string) {
     const req = {
       query: {
@@ -100,20 +118,23 @@ export class ArticlesState {
   createArticle(article: ArticlesDetailsValues) {
     return new Observable(subscriber => {
       const sub = this.articlesApi.postArticle({
-        body: {
-          codeString: article.codeStringField,
-          listPrice: article.listPriceField,
-          categoryId: article.categoryIdField,
-          dolar: 1,
-          description: article.descriptionField,
-          utility: article.utilityField / 100,
-          vat: article.vatField / 100,
-          transport: article.transportField / 100,
-          card: article.cardField / 100,
-          cost: article.costField,
-          price: article.priceField,
-          cardPrice: article.cardPriceField,
-        }
+        body: ArticlesUtil.toArticleRequestBody(article),
+      }).subscribe({
+        next: () => subscriber.next(),
+        error: error => subscriber.error(error),
+        complete: () => subscriber.complete(),
+      });
+      this.state.loadingArticles.waitFor(sub);
+    });
+  }
+
+  editArticle(article: ArticlesDetailsValues) {
+    return new Observable(subscriber => {
+      const sub = this.articlesApi.patchArticleById({
+        params: {
+          id: this.currentArticle$.value._id,
+        },
+        body: ArticlesUtil.toArticleRequestBody(article),
       }).subscribe({
         next: () => subscriber.next(),
         error: error => subscriber.error(error),

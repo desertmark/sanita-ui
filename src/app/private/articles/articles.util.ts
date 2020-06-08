@@ -1,4 +1,6 @@
-import { Discount } from 'src/app/api/articles.api';
+import { Discount, Article, ArticleRequestBody } from 'src/app/api/articles.api';
+import { ArticlesValues } from './articles.model';
+import { ArticlesDetailsValues } from '../article-details/article-details.model';
 
 export class ArticlesUtil {
   static calcCost(listPrice: number, vat: number, discounts: Discount[] = []): number {
@@ -19,4 +21,44 @@ export class ArticlesUtil {
     const cardPrice = price * (1 + card);
     return parseFloat(cardPrice.toFixed(2));
   }
+
+  static toArticleRequestBody(values: ArticlesDetailsValues): ArticleRequestBody {
+    return {
+      codeString: values.codeStringField,
+      listPrice: values.listPriceField,
+      categoryId: values.categoryIdField,
+      dolar: 1,
+      description: values.descriptionField,
+      utility: values.utilityField / 100,
+      vat: values.vatField / 100,
+      transport: values.transportField / 100,
+      card: values.cardField / 100,
+      cost: values.costField,
+      price: values.priceField,
+      cardPrice: values.cardPriceField,
+    };
+  }
+
+  static toArticleDetailsValues(article: Article) {
+    return {
+      codeStringField: article.codeString,
+      descriptionField: article.description,
+      priceField: article.price,
+      costField: article.cost,
+      dolarField: article.dolar,
+      utilityField: this.toPercentage(article.utility),
+      listPriceField: article.listPrice,
+      vatField: this.toPercentage(article.vat),
+      transportField: this.toPercentage(article.transport),
+      cardField: this.toPercentage(article.card),
+      cardPriceField: article.cardPrice,
+      categoryIdField: article.category.description,
+    };
+  }
+
+  static toPercentage(value: number) {
+    const percentage = value * 100;
+    return parseFloat(percentage.toFixed(2));
+  }
 }
+

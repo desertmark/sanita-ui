@@ -24,7 +24,7 @@ export class ArticleListComponent implements OnInit {
   }
 
   details(article: Article) {
-    this.articleState.currentArticle = article;
+    this.articleState.currentArticle$.next(article);
     this.router.navigate([`/private/articles/${article._id}`]);
   }
 

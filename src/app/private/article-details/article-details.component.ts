@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ArticleDetailsModel, ArticlesDetailsValues } from './article-details.model';
-import { Route, ActivatedRoute } from '@angular/router';
+import { ArticleDetailsModel } from './article-details.model';
+import { ActivatedRoute } from '@angular/router';
 import { ArticlesState } from '../articles/articles.state';
+import { SubscriptionLike } from 'rxjs';
+import { ArticlesUtil } from '../articles/articles.util';
 
 @Component({
   selector: 'app-article-details',
@@ -9,17 +11,20 @@ import { ArticlesState } from '../articles/articles.state';
   styleUrls: ['./article-details.component.scss']
 })
 export class ArticleDetailsComponent implements OnInit, OnDestroy {
+  subscriptions: SubscriptionLike[] = [];
   form: ArticleDetailsModel;
   headerMap = {
     create: {
       title: 'Alta',
       subtitle: 'Crea un nuevo producto en la base de datos.',
       buttonText: 'Dar de alta el producto',
+      buttonHandler: this.create.bind(this),
     },
     edit: {
       title: 'Editar',
       subtitle: 'Edita los campos del producto y guarda los cambio en la base de datos.',
       buttonText: 'Editar producto',
+      buttonHandler: this.edit.bind(this),
     }
   };
 
@@ -46,11 +51,16 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
     return this.mode === 'edit';
   }
 
+  get buttonHandler()  {
+    return this.headerMap[this.mode].buttonHandler;
+  }
+
   ngOnInit(): void {
     this.isEdit ? this.initEditMode() : this.initCreateMode();
   }
 
   ngOnDestroy(): void {
+    this.subscriptions.forEach(s => s.unsubscribe());
     if (this.form) {
       this.form.destroy();
     }
@@ -64,34 +74,29 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
     const sub = this.articlesState.createArticle(this.form.values).subscribe();
   }
 
+  edit() {
+    const sub = this.articlesState.editArticle(this.form.values).subscribe();
+  }
+
   initCreateMode() {
     this.form = new ArticleDetailsModel(this.articlesState.categories$, this.articlesState.isLoadingCategories$);
   }
 
   initEditMode() {
-    if (!this.articlesState.currentArticle) {
+    if (!this.articlesState.currentArticle$.value) {
       const articleId = this.route.snapshot.paramMap.get('id');
-      // this.articleState.loadCurrentArticle(articleId)
+      this.articlesState.loadCurrentArticle(articleId);
     }
-    const article = this.articlesState.currentArticle;
-    this.form = new ArticleDetailsModel(
-      this.articlesState.categories$,
-      this.articlesState.isLoadingCategories$,
-      {
-        codeStringField: article.codeString,
-        descriptionField: article.description,
-        priceField: article.price,
-        costField: article.cost,
-        dolarField: article.dolar,
-        utilityField: article.utility * 100,
-        listPriceField: article.listPrice,
-        vatField: article.vat  * 100,
-        transportField: article.transport  * 100,
-        cardField: article.card  * 100,
-        cardPriceField: article.cardPrice,
-        categoryIdField: article.category._id,
+    const sub = this.articlesState.currentArticle$.get$.subscribe(
+      article => {
+        this.form = new ArticleDetailsModel(
+          this.articlesState.categories$,
+          this.articlesState.isLoadingCategories$,
+          ArticlesUtil.toArticleDetailsValues(article),
+        );
       }
     );
+    this.subscriptions.push(sub);
   }
 
 }

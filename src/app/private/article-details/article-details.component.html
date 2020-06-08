@@ -1,11 +1,15 @@
 <div class="articles-details">
   <app-view-header color="success" [title]="title" subtitleColor="dark" [subtitle]="subtitle"></app-view-header>
 
-  <app-loading-container>
+  <app-loading-container [isLoading]="
+    (articlesState.isLoadingCurrentArticle$ | async) ||
+    (articlesState.isLoadingCreateArticle$ | async) ||
+    (articlesState.isLoadingEditArticle$ | async)
+  ">
     <ng-template #loadingTemplate>
-      <app-spinner></app-spinner>
+      <app-spinner [overlay]="true" ></app-spinner>
     </ng-template>
-    <div class="d-flex justify-content-center p-5 container-fluid">
+    <div *ngIf="form" class="d-flex justify-content-center p-5 container-fluid">
       <div class="card  border-success">
         <div class="card-body">
           <div class="form-row">
@@ -36,7 +40,7 @@
           </div>
   
           <div class="form-row">
-            <button (click)="create()" class="btn btn-block btn-success">
+            <button (click)="buttonHandler()" class="btn btn-block btn-success">
               {{ buttonText }}
             </button>
           </div>

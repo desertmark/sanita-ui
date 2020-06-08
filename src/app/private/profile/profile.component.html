@@ -4,7 +4,7 @@
   <div class="profile__picture">
     <app-icon icon="userCircle" size="10rem"></app-icon>
   </div>
-  <h2 class="text-center">{{ (appState.currentUser$ | async)?.firstName }} {{ (appState.currentUser$ | async)?.lastName }}</h2>
-  <p class="text-center text-secondary">{{ (appState.currentUser$ | async)?.email }}</p>
-  <p class="text-center text-secondary">{{ (appState.currentUser$ | async)?.role }}</p>
+  <h2 class="text-center">{{ (appState.currentUser$.get$ | async)?.firstName }} {{ (appState.currentUser$.get$ | async)?.lastName }}</h2>
+  <p class="text-center text-secondary">{{ (appState.currentUser$.get$ | async)?.email }}</p>
+  <p class="text-center text-secondary">{{ (appState.currentUser$.get$ | async)?.role }}</p>
 </div>
