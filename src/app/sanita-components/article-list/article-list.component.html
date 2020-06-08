@@ -12,6 +12,7 @@
             <th scope="col">Costo</th>
             <th scope="col">Utilidad</th>
             <th scope="col">Precio de Lista</th>
+            <th scope="col">Acciones</th>
           </ng-container>
         </ng-container>
       </tr>
@@ -28,6 +29,9 @@
             <td>{{ article.cost | currency }}</td>
             <td>{{ article.utility * 100 }}%</td>
             <td>{{ article.listPrice | currency }}</td>
+            <td>
+              <app-icon (click)="details(article)" icon="search"></app-icon>
+            </td>
           </ng-container>
         </ng-container>
       </tr>

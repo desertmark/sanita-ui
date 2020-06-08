@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BaseApi } from './base.api';
-import { PaginatedResponse } from '../lib/util/pagination.util';
-import { map } from 'rxjs/operators';
 
 export interface GetCategoryRequest {
   query: {

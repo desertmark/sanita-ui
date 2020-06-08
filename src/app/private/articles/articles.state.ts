@@ -21,6 +21,8 @@ class State {
   articles$ = new BehaviorSubject<Article[]>(undefined);
   articlesPagination: PaginatedResponse<Article>;
   categories$ = new BehaviorSubject<Category[]>(undefined);
+
+  currentArticle: Article;
 }
 
 @Injectable()
@@ -45,6 +47,13 @@ export class ArticlesState {
   }
   get categories$(): BehaviorSubject<Category[]> {
     return this.state.categories$;
+  }
+
+  get currentArticle(): Article {
+    return this.state.currentArticle;
+  }
+  set currentArticle(val: Article) {
+    this.state.currentArticle = val;
   }
 
   constructor(private articlesApi: ArticlesApi, private categoriesApi: CategoriesApi) {
@@ -95,12 +104,12 @@ export class ArticlesState {
           codeString: article.codeStringField,
           listPrice: article.listPriceField,
           categoryId: article.categoryIdField,
-          utility: article.utilityField,
           dolar: 1,
           description: article.descriptionField,
-          vat: article.vatField,
-          transport: article.transportField,
-          card: article.cardField,
+          utility: article.utilityField / 100,
+          vat: article.vatField / 100,
+          transport: article.transportField / 100,
+          card: article.cardField / 100,
           cost: article.costField,
           price: article.priceField,
           cardPrice: article.cardPriceField,

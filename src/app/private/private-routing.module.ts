@@ -22,6 +22,16 @@ const routes: Routes = [
   {
     path: 'articles/create',
     component: ArticleDetailsComponent,
+    data: {
+      mode: 'create',
+    }
+  },
+  {
+    path: 'articles/:id',
+    component: ArticleDetailsComponent,
+    data: {
+      mode: 'edit',
+    }
   },
   {
     path: 'profile',

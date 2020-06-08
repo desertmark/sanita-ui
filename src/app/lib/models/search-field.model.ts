@@ -3,7 +3,7 @@ import { Observable, of, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 export type TextGetter<T> = (option: T) => string;
 export type valueGetter<T> = (option: T) =>  string;
-export interface SearchFieldAttrs<T> extends BaseFieldAttr<T> {
+export interface SearchFieldAttrs<T> extends BaseFieldAttr<string> {
   leftIcon?: string;
   options: Observable<T[]>| T[];
   isLoading$: Observable<boolean>;
@@ -15,7 +15,7 @@ export interface SearchFieldAttrs<T> extends BaseFieldAttr<T> {
 const defaultTextGetter = option => (option as any)?.text;
 const defaulValueGetter = option => (option as any)?.value;
 
-export class SearchFieldModel<T> extends BaseField<T> {
+export class SearchFieldModel<T> extends BaseField<string> {
   leftIcon: string;
   options: Observable<T[]>| T[];
   isLoading$: Observable<boolean>;
