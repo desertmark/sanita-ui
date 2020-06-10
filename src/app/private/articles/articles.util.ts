@@ -26,7 +26,7 @@ export class ArticlesUtil {
     return {
       codeString: values.codeStringField,
       listPrice: values.listPriceField,
-      categoryId: values.categoryIdField,
+      categoryId: values.categoryIdField as string,
       dolar: 1,
       description: values.descriptionField,
       utility: values.utilityField / 100,
@@ -39,7 +39,7 @@ export class ArticlesUtil {
     };
   }
 
-  static toArticleDetailsValues(article: Article) {
+  static toArticleDetailsValues(article: Article): ArticlesDetailsValues {
     return {
       codeStringField: article.codeString,
       descriptionField: article.description,
@@ -52,7 +52,8 @@ export class ArticlesUtil {
       transportField: this.toPercentage(article.transport),
       cardField: this.toPercentage(article.card),
       cardPriceField: article.cardPrice,
-      categoryIdField: article.category.description,
+      categoryIdField: article.category._id,
+      categoryIdFieldOption: article.category,
     };
   }
 

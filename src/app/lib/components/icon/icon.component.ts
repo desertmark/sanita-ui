@@ -17,6 +17,8 @@ import { faCoffee,
   faDollarSign,
   faPercentage,
   faPlus,
+  faTrash,
+  faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons';
 
 const ICON_MAP = {
@@ -37,6 +39,8 @@ const ICON_MAP = {
   dollarSign: faDollarSign,
   percentage: faPercentage,
   plus: faPlus,
+  trash: faTrash,
+  trashAlt: faTrashAlt,
 };
 
 

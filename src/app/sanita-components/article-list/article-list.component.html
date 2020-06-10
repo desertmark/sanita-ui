@@ -29,8 +29,9 @@
             <td>{{ article.cost | currency }}</td>
             <td>{{ article.utility * 100 }}%</td>
             <td>{{ article.listPrice | currency }}</td>
-            <td>
-              <app-icon (click)="details(article)" icon="search"></app-icon>
+            <td class="text-center">
+              <app-icon class="text-info" (click)="details(article)" icon="eye"></app-icon>
+              <app-icon class="text-danger ml-2" (click)="details(article)" icon="trashAlt"></app-icon>
             </td>
           </ng-container>
         </ng-container>

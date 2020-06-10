@@ -21,6 +21,7 @@ export interface ArticlesDetailsValues {
   cardField: number;
   cardPriceField: number;
   categoryIdField: string;
+  categoryIdFieldOption?: Category;
 }
 
 export class ArticleDetailsModel extends BaseModel<ArticlesDetailsValues> {
@@ -112,7 +113,7 @@ export class ArticleDetailsModel extends BaseModel<ArticlesDetailsValues> {
     leftIcon: 'dollarSign',
   });
   categoryIdField = new SearchFieldModel<Category>({
-    defaultValue: this.defaults?.categoryIdField,
+    selectedOption: this.defaults?.categoryIdFieldOption,
     options: this.categories,
     isLoading$: this.isLoadingCategories$,
     label: 'Rubro',

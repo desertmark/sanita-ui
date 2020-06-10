@@ -10,6 +10,7 @@ export interface SearchFieldAttrs<T> extends BaseFieldAttr<string> {
   textGetter?: TextGetter<T>;
   valueGetter?: valueGetter<T>;
   searchDelay?: number;
+  selectedOption?: T;
 }
 
 const defaultTextGetter = option => (option as any)?.text;
@@ -31,6 +32,7 @@ export class SearchFieldModel<T> extends BaseField<string> {
     this.isLoading$ = attrs.isLoading$;
     this.textGetter = attrs.textGetter || defaultTextGetter;
     this.valueGetter = attrs.valueGetter || defaulValueGetter;
+    this.setSelectedOption(attrs.selectedOption);
   }
 
   get selectedOption$(): Observable<T> {
@@ -45,5 +47,10 @@ export class SearchFieldModel<T> extends BaseField<string> {
 
   get isSyncOptions() {
     return Array.isArray(this.options);
+  }
+
+  private setSelectedOption(option: T) {
+    this.setValue(this.valueGetter(option));
+    this.selectedOption = option;
   }
 }

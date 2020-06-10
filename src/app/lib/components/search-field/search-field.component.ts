@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter, OnDestroy, AfterViewInit } from '@angular/core';
 import { SearchFieldModel } from '../../models/search-field.model';
 import { Observable, Subject, SubscriptionLike } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
@@ -50,14 +50,17 @@ export class SearchFieldComponent implements OnInit, OnDestroy {
   setValue(option) {
     this.model.setValue(this.resolveValue(option));
     this.model.selectedOption = option;
-    console.log(option);
+    this.model.markAsTouched();
+    this.model.markAsDirty();
   }
 
   onBlur() {
+    this.model.markAsTouched();
     setTimeout(() => this.searching = false, 200);
   }
 
   onSearch(text) {
+    this.model.reset();
     this.debouncer.next(text);
   }
 
