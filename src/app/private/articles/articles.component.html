@@ -6,7 +6,8 @@
 
   <app-loading-container [isLoading]="
     (articlesState.isLoadingArticles$ | async) ||
-    (articlesState.isLoadingNextArticles$ | async)
+    (articlesState.isLoadingNextArticles$ | async) || 
+    (articlesState.isLoadingDeleteArticle$ | async)
   ">
   <div class="container-fluid">
     <div class="row">

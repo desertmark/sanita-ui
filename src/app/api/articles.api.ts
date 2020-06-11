@@ -112,6 +112,12 @@ export interface GetArticleByIdRequest {
   };
 }
 
+export interface DeleteArticleById {
+  params: {
+    id: string;
+  };
+}
+
 @Injectable()
 export class ArticlesApi extends BaseApi {
 
@@ -155,6 +161,10 @@ export class ArticlesApi extends BaseApi {
 
   patchArticleById(options: PatchArticleById) {
     return this.http$.patch(this.url(`/articles/${options.params.id}`), options.body);
+  }
+
+  deleteArticleById(options: DeleteArticleById) {
+    return this.http$.delete(this.url(`/articles/${options.params.id}`));
   }
 
   getStatus(): Observable<GetStatusResponse> {

@@ -20,6 +20,7 @@ class State {
   loadingCategories = new LoadingUtil();
   loadingCreateArticle = new LoadingUtil();
   loadingEditArticle = new LoadingUtil();
+  loadingDeleteArticle = new LoadingUtil();
 
   articles$ = new BehaviorSubject<Article[]>(undefined);
   articlesPagination: PaginatedResponse<Article>;
@@ -49,6 +50,9 @@ export class ArticlesState {
   }
   get isLoadingEditArticle$(): Observable<boolean> {
     return this.state.loadingEditArticle.isLoading$;
+  }
+  get isLoadingDeleteArticle$(): Observable<boolean> {
+    return this.state.loadingDeleteArticle.isLoading$;
   }
 
   get articles$(): BehaviorSubject<Article[]> {
@@ -141,6 +145,25 @@ export class ArticlesState {
         complete: () => subscriber.complete(),
       });
       this.state.loadingEditArticle.waitFor(sub);
+    });
+  }
+
+  deleteArticle(article: Article) {
+    return new Observable<void>(subscriber => {
+      const sub = this.articlesApi.deleteArticleById({
+        params: {
+          id: article._id
+        }
+      }).subscribe({
+        next: () => {
+          const list = this.state.articles$.value.filter(art => art._id !== article._id);
+          this.state.articles$.next(list);
+          subscriber.next();
+        },
+        error: error => subscriber.error(error),
+        complete: () => subscriber.complete(),
+      });
+      this.state.loadingDeleteArticle.waitFor(sub);
     });
   }
 
