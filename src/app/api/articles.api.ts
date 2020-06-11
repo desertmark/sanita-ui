@@ -93,7 +93,7 @@ export interface ArticleRequestBody {
   price?: number;
   cardPrice?: number;
   discounts?: Discount[];
-};
+}
 
 export interface PostArticleRequest {
   body: ArticleRequestBody;
@@ -150,7 +150,7 @@ export class ArticlesApi extends BaseApi {
   }
 
   postArticle(options: PostArticleRequest) {
-    return this.http$.post(this.url('/articles'), options.body);
+    return this.http$.post<Article>(this.url('/articles'), options.body);
   }
 
   patchArticleById(options: PatchArticleById) {

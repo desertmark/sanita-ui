@@ -36,7 +36,15 @@ export class ArticlesUtil {
       cost: values.costField,
       price: values.priceField,
       cardPrice: values.cardPriceField,
+      discounts: this.toDiscount(values.discountFields)
     };
+  }
+
+  static toDiscount(discounts: Discount[]) {
+    return discounts?.map(disc => {
+      disc.amount = disc.amount / 100;
+      return disc;
+    });
   }
 
   static toArticleDetailsValues(article: Article): ArticlesDetailsValues {
@@ -54,7 +62,15 @@ export class ArticlesUtil {
       cardPriceField: article.cardPrice,
       categoryIdField: article.category._id,
       categoryIdFieldOption: article.category,
+      discountFields: this.toDiscountArticleDetailsValues(article.discounts)
     };
+  }
+
+  static toDiscountArticleDetailsValues(discount: Discount[]) {
+    return discount?.map(disc => {
+      disc.amount = this.toPercentage(disc.amount);
+      return disc;
+    });
   }
 
   static toPercentage(value: number) {

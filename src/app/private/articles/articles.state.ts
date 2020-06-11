@@ -116,15 +116,15 @@ export class ArticlesState {
   }
 
   createArticle(article: ArticlesDetailsValues) {
-    return new Observable(subscriber => {
+    return new Observable<Article>(subscriber => {
       const sub = this.articlesApi.postArticle({
         body: ArticlesUtil.toArticleRequestBody(article),
       }).subscribe({
-        next: () => subscriber.next(),
+        next: res => subscriber.next(res),
         error: error => subscriber.error(error),
         complete: () => subscriber.complete(),
       });
-      this.state.loadingArticles.waitFor(sub);
+      this.state.loadingCreateArticle.waitFor(sub);
     });
   }
 
@@ -140,7 +140,7 @@ export class ArticlesState {
         error: error => subscriber.error(error),
         complete: () => subscriber.complete(),
       });
-      this.state.loadingArticles.waitFor(sub);
+      this.state.loadingEditArticle.waitFor(sub);
     });
   }
 

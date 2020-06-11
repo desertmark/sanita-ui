@@ -7,45 +7,89 @@
     (articlesState.isLoadingEditArticle$ | async)
   ">
     <ng-template #loadingTemplate>
-      <app-spinner [overlay]="true" ></app-spinner>
+      <app-spinner [overlay]="true"></app-spinner>
     </ng-template>
     <div *ngIf="form" class="d-flex justify-content-center p-5 container-fluid">
       <div class="card  border-success">
         <div class="card-body">
           <div class="form-row">
-            <app-text-field  class="col-md" [model]="form.codeStringField"></app-text-field>
+            <app-text-field class="col-md" [model]="form.codeStringField"></app-text-field>
             <app-number-field class="col-md" [model]="form.listPriceField"></app-number-field>
             <app-number-field class="col-md" [model]="form.utilityField"></app-number-field>
           </div>
-  
+
           <div class="form-row">
             <app-number-field class="col-md" [model]="form.costField"></app-number-field>
             <app-number-field class="col-md" [model]="form.priceField"></app-number-field>
             <app-number-field class="col-md" [model]="form.cardPriceField"></app-number-field>
           </div>
-  
+
           <div class="form-row">
             <!-- Search Category field -->
-            <app-search-field (search)="filterCategories($event)" class="col-md-6" [model]="form.categoryIdField"></app-search-field>
+            <app-search-field (search)="filterCategories($event)" class="col-md-6" [model]="form.categoryIdField">
+            </app-search-field>
           </div>
-  
+
           <div class="form-row">
             <app-text-field class="col" [model]="form.descriptionField"></app-text-field>
           </div>
-  
+
           <div class="form-row">
             <app-number-field class="col-md" [model]="form.vatField"></app-number-field>
             <app-number-field class="col-md" [model]="form.transportField"></app-number-field>
             <app-number-field class="col-md" [model]="form.cardField"></app-number-field>
           </div>
-  
-          <div class="form-row">
-            <button (click)="buttonHandler()" class="btn btn-block btn-success">
+
+          <div class="form-row mb-3">
+            <button [disabled]="!form.valid || form.pristine" (click)="buttonHandler()" class="btn btn-block btn-success">
               {{ buttonText }}
             </button>
+          </div>
+
+          <ngb-alert type="success" [dismissible]="false">
+            <strong>Bonificaciones y descuentos</strong>
+            <p>Lista de las bonificaciones y descuentos de este producto.</p>
+          </ngb-alert>
+
+          <ng-container *ngIf="form.discountFields?.length; else noDiscounts">
+            <div class="form-row">
+              <span class="col">Descripcion</span>
+              <span class="col">Cantidad</span>
+              <span class="col-1"></span>
+            </div>
+
+            <div class="form-row" *ngFor="let discountField of form.discountFields; let index = index">
+              <app-text-field class="col" [model]="discountField.descriptionField"></app-text-field>
+              <app-number-field class="col" [model]="discountField.amountField"></app-number-field>
+              <div class="col-1 d-flex align-items-center">
+                <button (click)="deleteDiscount(index)" class="btn btn-outline-danger btn-block mt-2">
+                  <app-icon icon="trashAlt"></app-icon>
+                </button>
+              </div>
+            </div>
+          </ng-container>
+
+          <!-- <ngb-alert type="success" [dismissible]="false">
+            <strong>Agrega un nuevo descuento o bonificacion</strong>
+          </ngb-alert> -->
+          <div class="form-row">
+            <app-text-field class="col" [model]="newDiscountForm.descriptionField"></app-text-field>
+            <app-number-field class="col" [model]="newDiscountForm.amountField"></app-number-field>
+            <div class="col-1 d-flex align-items-center">
+              <button (click)="addDiscount()" class="btn btn-success btn-block mt-2">
+                <app-icon icon="plus"></app-icon>
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </app-loading-container>
 </div>
+
+
+<ng-template #noDiscounts>
+  <!-- <ngb-alert type="info" [dismissible]="false">
+    Este producto no tiene descuentos ni bonificaciones.
+  </ngb-alert> -->
+</ng-template>

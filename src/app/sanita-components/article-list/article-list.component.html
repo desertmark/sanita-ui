@@ -8,7 +8,7 @@
         <ng-container *ngIf="loginState.isLogged$ | async">
           <th scope="col">Precio</th>
           <th scope="col">Precio Trajeta</th>
-          <ng-container *ngIf="(appState.currentUser$.get$ | async).role === 'ADMIN'">
+          <ng-container *ngIf="(appState.currentUser$.get$ | async)?.role === 'ADMIN'">
             <th scope="col">Costo</th>
             <th scope="col">Utilidad</th>
             <th scope="col">Precio de Lista</th>
@@ -25,7 +25,7 @@
         <ng-container *ngIf="loginState.isLogged$ | async">
           <td class="text-success">{{ article.price | currency }}</td>
           <td class="text-danger">{{ article.cardPrice | currency }}</td>
-          <ng-container *ngIf="(appState.currentUser$.get$ | async).role === 'ADMIN'">
+          <ng-container *ngIf="(appState.currentUser$.get$ | async)?.role === 'ADMIN'">
             <td>{{ article.cost | currency }}</td>
             <td>{{ article.utility * 100 }}%</td>
             <td>{{ article.listPrice | currency }}</td>

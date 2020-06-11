@@ -36,8 +36,18 @@ export class BaseModel<T> {
     return this.group?.dirty;
   }
 
+  get pristine(): boolean {
+    return this.group?.pristine;
+  }
+
   get touch(): boolean {
     return this.group?.touched;
+  }
+
+  markAsDirty(opts?: {
+    onlySelf?: boolean;
+  }): void {
+    this.group?.markAsDirty();
   }
 
   reset() {

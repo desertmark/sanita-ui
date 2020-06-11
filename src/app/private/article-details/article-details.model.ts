@@ -7,6 +7,8 @@ import { Category, CategoriesApi } from 'src/app/api/categories.api';
 import { Observable, merge } from 'rxjs';
 import { ArticlesUtil } from '../articles/articles.util';
 import { ArticlesState } from '../articles/articles.state';
+import { Discount } from 'src/app/api/articles.api';
+import { typeWithParameters } from '@angular/compiler/src/render3/util';
 
 export interface ArticlesDetailsValues {
   codeStringField: string;
@@ -22,6 +24,13 @@ export interface ArticlesDetailsValues {
   cardPriceField: number;
   categoryIdField: string;
   categoryIdFieldOption?: Category;
+  discountFields?: Discount[];
+}
+
+export interface DiscountField {
+  _id: string;
+  descriptionField: TextFieldModel;
+  amountField: NumberFieldModel;
 }
 
 export class ArticleDetailsModel extends BaseModel<ArticlesDetailsValues> {
@@ -125,6 +134,31 @@ export class ArticleDetailsModel extends BaseModel<ArticlesDetailsValues> {
     searchDelay: 500,
   });
 
+  discountFields = this.defaults?.discountFields?.map(disc => {
+    return {
+      _id: disc._id,
+      descriptionField: new TextFieldModel({
+        defaultValue: disc.description,
+      }),
+      amountField: new NumberFieldModel({
+        leftIcon: 'percentage',
+        defaultValue: disc.amount,
+      })
+    } as DiscountField;
+  }) || [];
+
+  get values(): ArticlesDetailsValues {
+    const values = super.values;
+    values.discountFields = this.discountFields.map(disc => {
+      return {
+        _id: disc._id,
+        amount: disc.amountField.value as number,
+        description: disc.descriptionField.value as string,
+      } as Discount;
+    });
+    return values;
+  }
+
   initFields() {
     const sub = this.valueChanges$.subscribe(
       values => {
@@ -138,4 +172,24 @@ export class ArticleDetailsModel extends BaseModel<ArticlesDetailsValues> {
     );
     this.subscriptions.push(sub);
   }
+
+  addDiscount(discount: DiscountField) {
+    this.discountFields.push(discount);
+    this.markAsDirty();
+  }
+
+  removeDiscount(index: number) {
+    this.discountFields.splice(index, 1);
+    this.markAsDirty();
+  }
+}
+
+export class NewDiscountModel extends BaseModel<any> {
+  constructor() {
+    super();
+    this.init();
+  }
+
+  descriptionField = new TextFieldModel({ placeholder: 'Descripcion' });
+  amountField = new NumberFieldModel({ placeholder: 'Cantidad', leftIcon: 'percentage' });
 }
