@@ -88,6 +88,12 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
     const sub = this.articlesState.editArticle(this.form.values).subscribe();
   }
 
+  deleteArticle() {
+    const sub = this.articlesState.deleteArticle(this.articlesState.currentArticle$.value).subscribe({
+      next: () => this.router.navigate(['/private/articles']),
+    });
+  }
+
   initCreateMode() {
     this.form = new ArticleDetailsModel(this.articlesState.categories$, this.articlesState.isLoadingCategories$);
   }
