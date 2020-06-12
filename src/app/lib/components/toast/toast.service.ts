@@ -26,6 +26,8 @@ export interface Toast {
 export class ToastService {
   toasts: Toast[] = [];
 
+  darkTextColors = ['light', 'warning', 'secondary'];
+
   success(options: ToastOptions) {
     this.toasts.push(this.createToast(options, 'success'));
   }
@@ -34,8 +36,8 @@ export class ToastService {
     this.toasts.push(this.createToast(options, 'danger'));
   }
 
-  info(options: ToastOptions) {
-    this.toasts.push(this.createToast(options, 'info'));
+  secondary(options: ToastOptions) {
+    this.toasts.push(this.createToast(options, 'secondary'));
   }
 
   warning(options: ToastOptions) {
@@ -54,7 +56,7 @@ export class ToastService {
     return {
       options,
       type,
-      text: type === 'light' || type === 'warning' ? 'dark' : 'light',
+      text: this.darkTextColors.includes(type) ? 'dark' : 'light',
     } as Toast;
   }
 }

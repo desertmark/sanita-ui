@@ -27,9 +27,9 @@ export class ErrorInterceptor implements HttpInterceptor {
         if (error.status === 401) {
           this.loginState.clearSession();
           this.router.navigate(['/public/login']);
-          this.toastService.info({
+          this.toastService.secondary({
             body: {
-              leftIcon: 'info',
+              leftIcon: 'infoCircle',
               description: 'Tu sesión ha expirado, porfavor ingresa de nuevo para continuar.'
             }
           });

@@ -15,9 +15,15 @@ export class AdminGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (this.appState.currentUser$.value?.role === 'ADMIN') {
-      return true;
-    }
+    return new Observable<boolean>(subscriber => {
+      this.appState.appReady$.subscribe({
+        next: isAppReady => {
+          if (isAppReady) {
+            subscriber.next(this.appState.currentUser$.value?.role === 'ADMIN');
+          }
+        }
+      });
+    });
     this.router.navigate(['/private/']);
     return false;
   }

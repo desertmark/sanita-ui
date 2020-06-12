@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Injectable, EventEmitter } from '@angular/core';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { LoadingUtil } from 'src/app/lib/util/loading.util';
 import { UserResponse, UserApi } from './api/user.api';
 import { ResponseSubject } from './lib/models/response-subject.model';
@@ -14,6 +14,7 @@ export enum UserRolesEnum {
 class State {
   loadingCurrentUser = new LoadingUtil();
   currentUser$ = new ResponseSubject<UserResponse>();
+  appReady$ = new BehaviorSubject<boolean>(false);
 }
 
 @Injectable()
@@ -22,6 +23,10 @@ export class AppState {
 
   get isLoadingCurrentUser$(): Observable<boolean> {
     return this.state.loadingCurrentUser.isLoading$;
+  }
+
+  get appReady$(): Observable<boolean> {
+    return this.state.appReady$.asObservable();
   }
 
   get isAdmin$(): Observable<boolean> {
@@ -47,6 +52,7 @@ export class AppState {
       const sub = this.userApi.getUserById(req).subscribe({
         next: res => {
           this.state.currentUser$.next(res);
+          this.state.appReady$.next(true);
           subscriber.next();
         },
         error: error => subscriber.error(error),
