@@ -1,5 +1,5 @@
 <div class="articles-details">
-  <app-view-header color="success" [title]="title" subtitleColor="dark" [subtitle]="subtitle"></app-view-header>
+  <app-view-header [title]="title" subtitleColor="dark" [subtitle]="subtitle"></app-view-header>
 
   <app-loading-container [isLoading]="
     (articlesState.isLoadingCurrentArticle$ | async) ||
@@ -41,12 +41,12 @@
           </div>
 
           <div class="form-row mb-3">
-            <button [disabled]="!form.valid || form.pristine" (click)="buttonHandler()" class="btn btn-block btn-success">
+            <button [disabled]="!form.valid || form.pristine" (click)="buttonHandler()" class="btn btn-block btn-primary">
               {{ buttonText }}
             </button>
           </div>
 
-          <ngb-alert type="success" [dismissible]="false">
+          <ngb-alert type="primary" [dismissible]="false">
             <strong>Bonificaciones y descuentos</strong>
             <p>Lista de las bonificaciones y descuentos de este producto.</p>
           </ngb-alert>
@@ -76,7 +76,7 @@
             <app-text-field class="col" [model]="newDiscountForm.descriptionField"></app-text-field>
             <app-number-field class="col" [model]="newDiscountForm.amountField"></app-number-field>
             <div class="col-1 d-flex align-items-center">
-              <button (click)="addDiscount()" class="btn btn-success btn-block mt-2">
+              <button (click)="addDiscount()" class="btn btn-primary btn-block mt-2">
                 <app-icon icon="plus"></app-icon>
               </button>
             </div>

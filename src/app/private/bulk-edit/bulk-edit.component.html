@@ -1,6 +1,6 @@
 <div class="bulk-edit">
   <div class="">
-    <app-view-header color="info" title="Actualizacion Masiva" subtitleColor="secondary"
+    <app-view-header title="Actualizacion Masiva" subtitleColor="dark"
       subtitle="Actualice precio y otros valores muchos productos de forma simultanea"></app-view-header>
   </div>
 
@@ -27,7 +27,7 @@
       </ul>
       <!-- TAB CONTENT  -->
       <div class="d-flex justify-content-center p-5">
-        <div class="bulk-edit__card card border-info">
+        <div class="bulk-edit__card card ">
           <div class="card-body">
             <div [ngbNavOutlet]="nav"></div>
           </div>
@@ -57,7 +57,7 @@
   <ng-template #upload>
     <app-file-field [model]="form.fileField"></app-file-field>
     <div class="d-flex justify-content-end">
-      <button [disabled]="form.fileField.invalid" (click)="uploadFile()" class="btn btn-block btn-info">Subir</button>
+      <button [disabled]="form.fileField.invalid" (click)="uploadFile()" class="btn btn-block btn-primary">Subir</button>
     </div>
   </ng-template>
 </ng-template>
@@ -69,10 +69,10 @@
       <app-text-field class="col-md-6" [model]="form.codeEndField"></app-text-field>
     </div>
     <label>Precio</label>
-    <div class="border-info card w-100">
+    <div class=" card w-100">
       <div class="card-body">
         <div class="form-row">
-          <app-radio-toggle class="col-md" color="secondary" [model]="form.typeOfIncreaseField"></app-radio-toggle>
+          <app-radio-toggle class="col-md" [model]="form.typeOfIncreaseField"></app-radio-toggle>
           <app-number-field class="col-md mt-2" *ngIf="form.typeOfIncreaseField.value === 'percentage'"
             [model]="form.percentagePriceField"></app-number-field>
           <app-number-field class="col-md mt-2" *ngIf="form.typeOfIncreaseField.value === 'absolute'"
@@ -92,7 +92,7 @@
     </div>
 
     <div class="form-row">
-      <button (click)="update()" [disabled]="!form.valid" class="btn btn-block btn-info">Actualizar</button>
+      <button (click)="update()" [disabled]="!form.valid" class="btn btn-block btn-primary">Actualizar</button>
     </div>
   </div>
 </ng-template>

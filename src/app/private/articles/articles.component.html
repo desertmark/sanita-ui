@@ -1,7 +1,7 @@
 <div class="articles">
   <div class="articles__background">
-    <app-view-header [color]="'success'" imgSrc='../../../assets/images/articles-bg.jpg' title="Productos"
-      subtitleColor="warning" subtitle="Filtre y ordene nuestra lista de productos"></app-view-header>
+    <app-view-header title="Productos"
+      subtitleColor="dark" subtitle="Filtre y ordene nuestra lista de productos"></app-view-header>
   </div>
 
   <app-loading-container [isLoading]="
@@ -12,7 +12,7 @@
   <div class="container-fluid">
     <div *ngIf="appState.isAdmin$ | async" class="row">
       <div class="col">
-        <a [routerLink]="['/private/articles/create']" class="btn btn-block btn-success text-light">
+        <a [routerLink]="['/private/articles/create']" class="btn btn-block btn-primary text-light">
           <app-icon icon="plus"></app-icon>
           Nuevo Producto
         </a>
@@ -23,11 +23,11 @@
         <app-text-field [model]="form.searchField"></app-text-field>
       </div>
       <div class="col-md-4 col-sm-8 d-flex align-items-center">
-        <app-radio-toggle color="secondary" [model]="form.searchByField"></app-radio-toggle>
+        <app-radio-toggle color="neutral" [model]="form.searchByField"></app-radio-toggle>
       </div>
       <div class="col-md-4 col-sm-4 justify-content-end d-flex align-items-center">
         <app-select-field type="dropdown" [model]="form.orderByField"></app-select-field>
-        <app-radio-toggle color="secondary" class="ml-1" [model]="form.sortOrderField"></app-radio-toggle>
+        <app-radio-toggle class="ml-1" [model]="form.sortOrderField"></app-radio-toggle>
       </div>
     </div>
   </div>

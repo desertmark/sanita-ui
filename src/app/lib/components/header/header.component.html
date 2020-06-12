@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-neutral">
   <a class="navbar-brand" href="#">SANITA</a>
   <button (click)="toggleCollapsed()" class="navbar-toggler" type="button">
     <span class="navbar-toggler-icon"></span>
@@ -21,10 +21,10 @@
         </li>
       </ul>
     <div>
-      <button *ngIf="!(loginState.isLogged$ | async)" [routerLink]="loginLink.url" class="btn btn-outline-info">
+      <!-- <button *ngIf="!(loginState.isLogged$ | async)" [routerLink]="loginLink.url" class="btn btn-outline-secondary">
         {{ loginLink.title }}
-      </button>
-      <button (click)="logout()" *ngIf="loginState.isLogged$ | async" class="btn btn-outline-danger">
+      </button> -->
+      <button (click)="logout()" *ngIf="loginState.isLogged$ | async" class="btn btn-outline-secondary">
         Salir
         <app-icon icon="singOutAlt" size="1rem"></app-icon>
       </button>

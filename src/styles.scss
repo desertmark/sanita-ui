@@ -5,8 +5,16 @@
 // $body-color: #111;
 $enable-gradients: true;
 
+$theme-colors: (
+    "primary": #047c00,
+  "secondary": #d8c200,
+  "neutral": #555,
+);
+
+
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
+
 
 /* Use of bootstrap variables */
 // body {

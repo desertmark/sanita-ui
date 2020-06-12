@@ -11,9 +11,9 @@ import { AppState } from 'src/app/app.state';
 })
 export class HeaderComponent implements OnDestroy {
   @ViewChild('expandable') expandable: ElementRef<any>;
-  loginLink = { title: 'Login', url: 'public/login' };
+  loginLink = { title: 'Ingresar', url: 'public/login' };
   links = [
-    { title: 'Articles', url: 'private/articles', icon: 'thList' },
+    { title: 'Productos', url: 'private/articles', icon: 'thList', private: true },
     { title: 'Actualizar', url: 'private/articles/bulk-edit', private: true, icon: 'sync', admin: true },
     { title: 'Profile', url: 'private/profile', private: true, icon: 'userCircle' },
   ];
