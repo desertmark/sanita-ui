@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --configuration=$NODE_ENV",
-    "heroku-start": "lite-server",
+    "heroku-start": "npm run build && lite-server",
     "build": "ng build --configuration=$NODE_ENV",
     "build:staging": "ng build --configuration=staging",
     "build:prod": "ng build --configuration=production",
