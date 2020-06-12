@@ -4,6 +4,7 @@ import { ArticlesModel, ArticlesValues } from './articles.model';
 import { SubscriptionLike } from 'rxjs';
 import { delay, throttle, throttleTime, debounce, debounceTime } from 'rxjs/operators';
 import { LoginState } from 'src/app/public/login/login.state';
+import { AppState } from 'src/app/app.state';
 
 @Component({
   selector: 'app-articles',
@@ -13,7 +14,11 @@ import { LoginState } from 'src/app/public/login/login.state';
 export class ArticlesComponent implements OnInit, OnDestroy {
   form = new ArticlesModel();
   subscriptions: SubscriptionLike[] = [];
-  constructor(public articlesState: ArticlesState, public loginState: LoginState) {
+  constructor(
+    public articlesState: ArticlesState,
+    public loginState: LoginState,
+    public appState: AppState,
+  ) {
     this.articlesState.loadArticles();
   }
 

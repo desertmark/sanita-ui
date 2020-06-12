@@ -10,7 +10,10 @@
           <a class="nav-link" 
             routerLinkActive="active"
             [routerLink]="link.url"
-            *ngIf="link?.private && (loginState.isLogged$ | async) || !link?.private"
+            *ngIf="
+              (link?.private && (loginState.isLogged$ | async) || !link?.private) &&
+              (link?.admin && (appState.isAdmin$ | async) || !link?.admin)
+            "
           >
             <app-icon  *ngIf="link.icon" [icon]="link.icon"></app-icon>
             {{ link.title }} <span class="sr-only">(current)</span>

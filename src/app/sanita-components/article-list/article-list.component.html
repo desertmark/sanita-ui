@@ -31,7 +31,7 @@
             <td>{{ article.listPrice | currency }}</td>
             <td class="text-center">
               <app-icon class="text-info" (click)="details(article)" icon="eye"></app-icon>
-              <app-icon class="text-danger ml-2" (click)="deleteArticle(article)" icon="trashAlt"></app-icon>
+              <app-icon class="text-danger ml-2" (click)="openDeleteModal(deleteModal, article)" icon="trashAlt"></app-icon>
             </td>
           </ng-container>
         </ng-container>
@@ -39,3 +39,8 @@
     </tbody>
   </table>
 </div>
+
+
+<ng-template #deleteModal>
+  <app-article-delete-confirm (cancel)="closeModal()" (confirmDelete)="deleteArticle()"></app-article-delete-confirm>
+</ng-template>

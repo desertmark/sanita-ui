@@ -1,0 +1,18 @@
+  <div class="modal-header danger-modal">
+    <h4 class="modal-title" id="modal-basic-title">Eliminar Producto <app-icon icon="trashAlt"></app-icon></h4>
+    <button type="button" class="close" aria-label="Close" (click)="onCancel()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <!-- <ngb-alert type="danger" [dismissible]="false"> -->
+      <p>Estas a punto de <strong class="text-danger">eliminar</strong> un producto, seguro que quiere continuar? Esta accion no se puede revertir</p>
+      <p>El producto sera eliminado de la base de datos.</p>
+    <!-- </ngb-alert> -->
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-block btn-danger" (click)="onDeleteConfirm()">
+      <app-icon icon="trashAlt"></app-icon>
+      Eliminar Producto
+    </button>
+  </div>

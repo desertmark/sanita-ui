@@ -82,8 +82,8 @@
             </div>
           </div>
 
-          <div class="form-row">
-            <button (click)="deleteArticle()" class="btn btn-block btn-danger">
+          <div *ngIf="mode === 'edit'" class="form-row">
+            <button (click)="openDeleteModal(deleteModal)" class="btn btn-block btn-danger">
               <app-icon icon="trashAlt"></app-icon>
               Borrar este producto
             </button>
@@ -99,4 +99,8 @@
   <!-- <ngb-alert type="info" [dismissible]="false">
     Este producto no tiene descuentos ni bonificaciones.
   </ngb-alert> -->
+</ng-template>
+
+<ng-template #deleteModal>
+  <app-article-delete-confirm (cancel)="closeModal()" (confirmDelete)="deleteArticle()"></app-article-delete-confirm>
 </ng-template>

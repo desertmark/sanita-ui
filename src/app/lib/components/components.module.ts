@@ -16,6 +16,7 @@ import { SelectComponent } from './select/select-field.component';
 import { NumberFieldComponent } from './number-field/number-field.component';
 import { FileFieldComponent } from './file-field/file-field.component';
 import { SearchFieldComponent } from './search-field/search-field.component';
+import { ToastContainerComponent } from './toast/toast-container.component';
 
 const COMPONENTS = [
   HeaderComponent,
@@ -31,6 +32,7 @@ const COMPONENTS = [
   NumberFieldComponent,
   FileFieldComponent,
   SearchFieldComponent,
+  ToastContainerComponent,
 ];
 
 @NgModule({

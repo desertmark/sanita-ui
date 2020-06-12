@@ -4,6 +4,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { ArticlesComponent } from './articles/articles.component';
 import { BulkEditComponent } from './bulk-edit/bulk-edit.component';
 import { ArticleDetailsComponent } from './article-details/article-details.component';
+import { AdminGuard } from '../admin.guard';
 
 
 const routes: Routes = [
@@ -18,10 +19,12 @@ const routes: Routes = [
   {
     path: 'articles/bulk-edit',
     component: BulkEditComponent,
+    canActivate: [AdminGuard]
   },
   {
     path: 'articles/create',
     component: ArticleDetailsComponent,
+    canActivate: [AdminGuard],
     data: {
       mode: 'create',
     }
@@ -29,6 +32,7 @@ const routes: Routes = [
   {
     path: 'articles/:id',
     component: ArticleDetailsComponent,
+    canActivate: [AdminGuard],
     data: {
       mode: 'edit',
     }

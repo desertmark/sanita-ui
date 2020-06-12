@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-export type BootstrapColor = 'primary' | 'secondary' | 'warning' | 'danger' | 'info' | 'light' | 'dark';
+export type BootstrapColor = 'primary' | 'secondary' | 'success' |'warning' | 'danger' | 'info' | 'light' | 'dark';
 @Component({
   selector: 'app-view-header',
   templateUrl: './view-header.component.html',

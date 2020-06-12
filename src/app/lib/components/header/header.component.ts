@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild, TemplateRef, ElementRef } from
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginState } from 'src/app/public/login/login.state';
 import { SubscriptionLike } from 'rxjs';
+import { AppState } from 'src/app/app.state';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,7 @@ export class HeaderComponent implements OnDestroy {
   loginLink = { title: 'Login', url: 'public/login' };
   links = [
     { title: 'Articles', url: 'private/articles', icon: 'thList' },
-    { title: 'Actualizar', url: 'private/articles/bulk-edit', private: true, icon: 'sync' },
+    { title: 'Actualizar', url: 'private/articles/bulk-edit', private: true, icon: 'sync', admin: true },
     { title: 'Profile', url: 'private/profile', private: true, icon: 'userCircle' },
   ];
   subscriptions: SubscriptionLike[] = [];
@@ -21,6 +22,7 @@ export class HeaderComponent implements OnDestroy {
   constructor(
     public route: ActivatedRoute,
     public loginState: LoginState,
+    public appState: AppState,
     private router: Router,
   ) {}
 

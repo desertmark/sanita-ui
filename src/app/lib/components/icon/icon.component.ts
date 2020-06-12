@@ -19,6 +19,8 @@ import { faCoffee,
   faPlus,
   faTrash,
   faTrashAlt,
+  faInfo,
+  faInfoCircle,
 } from '@fortawesome/free-solid-svg-icons';
 
 const ICON_MAP = {
@@ -41,6 +43,8 @@ const ICON_MAP = {
   plus: faPlus,
   trash: faTrash,
   trashAlt: faTrashAlt,
+  info: faInfo,
+  infoCircle: faInfoCircle,
 };
 
 

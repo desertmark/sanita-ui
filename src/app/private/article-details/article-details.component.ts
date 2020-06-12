@@ -7,6 +7,8 @@ import { ArticlesUtil } from '../articles/articles.util';
 import { Discount } from 'src/app/api/articles.api';
 import { TextFieldModel } from 'src/app/lib/models/text-field.model';
 import { NumberFieldModel } from 'src/app/lib/models/number-field.model';
+import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastService } from 'src/app/lib/components/toast/toast.service';
 
 @Component({
   selector: 'app-article-details',
@@ -17,6 +19,7 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
   newDiscountForm = new NewDiscountModel();
   subscriptions: SubscriptionLike[] = [];
   form: ArticleDetailsModel;
+  modalRef: NgbModalRef;
   headerMap = {
     create: {
       title: 'Alta',
@@ -35,11 +38,13 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private modalService: NgbModal,
+    private toastService: ToastService,
     public articlesState: ArticlesState
   ) {
     this.articlesState.loadArticles();
   }
-  private get mode(): string {
+  get mode(): string {
     return this.route.snapshot.data.mode;
   }
 
@@ -80,18 +85,47 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
 
   create() {
     const sub = this.articlesState.createArticle(this.form.values).subscribe(
-      res => this.router.navigate([`/private/articles/${res._id}`])
+      res => {
+        this.router.navigate([`/private/articles/${res._id}`]),
+        this.toastService.success({
+          body: {
+            leftIcon: 'plus',
+            description: 'Producto creado correctamente',
+          },
+        });
+      }
     );
+    this.subscriptions.push(sub);
   }
 
   edit() {
-    const sub = this.articlesState.editArticle(this.form.values).subscribe();
+    const sub = this.articlesState.editArticle(this.form.values).subscribe({
+      next: () => {
+        this.toastService.success({
+          body: {
+            leftIcon: 'edit',
+            description: 'Producto editado correctamente',
+          },
+        });
+      }
+    });
+    this.subscriptions.push(sub);
   }
 
   deleteArticle() {
     const sub = this.articlesState.deleteArticle(this.articlesState.currentArticle$.value).subscribe({
-      next: () => this.router.navigate(['/private/articles']),
+      next: () => {
+        this.router.navigate(['/private/articles']);
+        this.closeModal();
+        this.toastService.success({
+          body: {
+            leftIcon: 'trashAlt',
+            description: 'Producto eliminado correctamente.'
+          }
+        });
+      },
     });
+    this.subscriptions.push(sub);
   }
 
   initCreateMode() {
@@ -126,6 +160,14 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
       amountField: new NumberFieldModel({ defaultValue: this.newDiscountForm.amountField.value, leftIcon: 'percentage' })
     });
     this.newDiscountForm.reset();
+  }
+
+  openDeleteModal(template) {
+    this.modalRef = this.modalService.open(template);
+  }
+
+  closeModal() {
+    this.modalRef.close();
   }
 
 }

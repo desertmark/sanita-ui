@@ -10,7 +10,7 @@
     (articlesState.isLoadingDeleteArticle$ | async)
   ">
   <div class="container-fluid">
-    <div class="row">
+    <div *ngIf="appState.isAdmin$ | async" class="row">
       <div class="col">
         <a [routerLink]="['/private/articles/create']" class="btn btn-block btn-success text-light">
           <app-icon icon="plus"></app-icon>

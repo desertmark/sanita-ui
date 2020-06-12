@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ArticleCardComponent } from './article-card/article-card.component';
 import { LibModule } from '../lib/lib.module';
 import { ArticleListComponent } from './article-list/article-list.component';
+import { ArticleDeleteConfirmComponent } from './article-delete-confirm/article-delete-confirm.component';
 
 const COMPONENTS = [
   ArticleCardComponent,
-  ArticleListComponent
+  ArticleListComponent,
+  ArticleDeleteConfirmComponent
 ];
 
 @NgModule({

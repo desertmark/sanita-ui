@@ -1,0 +1,24 @@
+<ng-container *ngFor="let toast of toastService.toasts; let index = index;">
+  <ngb-toast *ngIf="toast?.options?.header" class="bg-{{toast?.type}} text-{{toast.text}}"
+    (hide)="toastService.remove(index)" [autohide]="true" [delay]="toast?.options?.delay || 5000">
+
+    <ng-template ngbToastHeader>
+      <app-icon *ngIf="toast?.options?.header?.leftIcon" [icon]="toast?.options?.header?.leftIcon"></app-icon>
+      <strong class="mx-1">
+        {{ toast?.options?.header?.description }}
+      </strong>
+    </ng-template>
+
+    <app-icon *ngIf="toast?.options?.body?.leftIcon" [icon]="toast?.options?.body?.leftIcon"></app-icon>
+    {{ toast?.options?.body?.description }}
+  </ngb-toast>
+
+  <ngb-toast *ngIf="!toast?.options?.header" class="bg-{{toast?.type}} text-{{toast.text}}"
+    (hide)="toastService.remove(index)" [autohide]="true" [delay]="toast?.options?.delay || 5000">
+    <app-icon *ngIf="toast?.options?.body?.leftIcon" [icon]="toast?.options?.body?.leftIcon"></app-icon>
+    {{ toast?.options?.body?.description }}
+  </ngb-toast>
+
+</ng-container>
+
+
