@@ -8,7 +8,7 @@ export interface GetUserByIdRequest {
 }
 
 export interface UserResponse {
-  _id: string;
+  id: string;
   email: string;
   firstName: string;
   lastName: string;

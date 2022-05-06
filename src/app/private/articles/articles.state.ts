@@ -73,7 +73,7 @@ export class ArticlesState {
     const req: GetArticlesRequest = {
       query: {
         page: 0,
-        size: 10,
+        size: 20,
         ...filter,
       }
     };
@@ -136,7 +136,7 @@ export class ArticlesState {
     return new Observable(subscriber => {
       const sub = this.articlesApi.patchArticleById({
         params: {
-          id: this.currentArticle$.value._id,
+          id: this.currentArticle$.value.id,
         },
         body: ArticlesUtil.toArticleRequestBody(article),
       }).subscribe({
@@ -152,11 +152,11 @@ export class ArticlesState {
     return new Observable<void>(subscriber => {
       const sub = this.articlesApi.deleteArticleById({
         params: {
-          id: article._id
+          id: article.id
         }
       }).subscribe({
         next: () => {
-          const list = this.state.articles$.value.filter(art => art._id !== article._id);
+          const list = this.state.articles$.value.filter(art => art.id !== article.id);
           this.state.articles$.next(list);
           subscriber.next();
         },

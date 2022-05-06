@@ -29,9 +29,9 @@ export class LoginComponent implements OnInit {
     if (this.form.valid) {
       this.loginState.username = this.form.username.value;
       this.loginState.password = this.form.password.value;
-      this.loginState.login().pipe(
-        switchMap(() => this.appState.loadCurrentUser(this.loginState.token$?.value?.claims?.sub))
-      ).subscribe(
+      this.loginState.login()
+      .pipe(switchMap(() => this.appState.loadCurrentUser(this.loginState.token$?.value?.userInfo)))
+      .subscribe(
         () => this.next(),
       );
     }

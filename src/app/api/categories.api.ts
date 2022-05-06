@@ -11,7 +11,7 @@ export interface GetCategoryRequest {
 }
 
 export interface Category {
-  _id: string;
+  id: string;
   description: string;
 }
 

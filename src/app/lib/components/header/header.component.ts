@@ -15,7 +15,7 @@ export class HeaderComponent implements OnDestroy {
   links = [
     { title: 'Productos', url: 'private/articles', icon: 'thList', private: true },
     { title: 'Actualizar', url: 'private/articles/bulk-edit', private: true, icon: 'sync', admin: true },
-    { title: 'Profile', url: 'private/profile', private: true, icon: 'userCircle' },
+    { title: 'Perfil', url: 'private/profile', private: true, icon: 'userCircle' },
   ];
   subscriptions: SubscriptionLike[] = [];
   collapsed = true;

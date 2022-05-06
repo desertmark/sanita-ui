@@ -34,7 +34,7 @@ export class ArticleListComponent implements OnDestroy {
 
   details(article: Article) {
     this.articleState.currentArticle$.next(article);
-    this.router.navigate([`/private/articles/${article._id}`]);
+    this.router.navigate([`/private/articles/${article.id}`]);
   }
 
   openDeleteModal(template, article: Article) {

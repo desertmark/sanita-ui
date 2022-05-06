@@ -86,7 +86,7 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
   create() {
     const sub = this.articlesState.createArticle(this.form.values).subscribe(
       res => {
-        this.router.navigate([`/private/articles/${res._id}`]),
+        this.router.navigate([`/private/articles/${res.id}`]),
         this.toastService.success({
           body: {
             leftIcon: 'plus',
@@ -155,7 +155,7 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
 
   addDiscount() {
     this.form.addDiscount({
-      _id: null,
+      id: null,
       descriptionField: new TextFieldModel({defaultValue: this.newDiscountForm.descriptionField.value}),
       amountField: new NumberFieldModel({ defaultValue: this.newDiscountForm.amountField.value, leftIcon: 'percentage' })
     });

@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
 import { Category } from './categories.api';
 export interface Discount {
-  _id: string;
+  id: string;
   description: string;
   amount: number;
 }
@@ -27,7 +27,7 @@ export interface GetArticlesRequest extends PaginatedRequest {
 }
 
 export interface Article {
-  _id: string;
+  id: string;
   code: number;
   description: string;
   price: number;
@@ -126,49 +126,49 @@ export class ArticlesApi extends BaseApi {
       params: {
         ...options.query,
         page: options.query.page.toString(),
-        size: options.query.page.toString(),
+        size: options.query.size.toString(),
       }
     };
-    return this.http$.get<ArticleResponse>(this.url(`/articles/`), req).pipe(
+    return this.http$.get<PaginatedResponse<Article>>(this.url(`/products`), req).pipe(
       map(res => {
         return new PaginatedResponse<Article>({
           apiMethod: this.getArticles.bind(this),
           request: options,
-          items: res.articles,
-          totalSize: res.totalSize,
+          items: res.items,
+          total: res.total,
         });
       })
     );
   }
 
   getArticleById(options: GetArticleByIdRequest): Observable<Article> {
-    return this.http$.get<Article>(this.url(`/articles/${options.params.id}`));
+    return this.http$.get<Article>(this.url(`/products/${options.params.id}`));
   }
 
   patchArticles(options: PatchArticlesRequest) {
-    return this.http$.patch(this.url('/articles'), options.body);
+    return this.http$.patch(this.url('/products'), options.body);
   }
 
   patchArticlesByfile(options: PatchArticlesByFileRequest) {
     const form = new FormData();
     form.append('bulk', options.form.bulk);
-    return this.http$.patch(this.url('/articles'), form);
+    return this.http$.patch(this.url('/products'), form);
   }
 
   postArticle(options: PostArticleRequest) {
-    return this.http$.post<Article>(this.url('/articles'), options.body);
+    return this.http$.post<Article>(this.url('/products'), options.body);
   }
 
   patchArticleById(options: PatchArticleById) {
-    return this.http$.patch(this.url(`/articles/${options.params.id}`), options.body);
+    return this.http$.patch(this.url(`/products/${options.params.id}`), options.body);
   }
 
   deleteArticleById(options: DeleteArticleById) {
-    return this.http$.delete(this.url(`/articles/${options.params.id}`));
+    return this.http$.delete(this.url(`/products/${options.params.id}`));
   }
 
   getStatus(): Observable<GetStatusResponse> {
-    return this.http$.get<GetStatusResponse>(this.url('/articles/status'));
+    return this.http$.get<GetStatusResponse>(this.url('/products/status'));
   }
 
 }

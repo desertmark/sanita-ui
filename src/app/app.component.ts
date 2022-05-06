@@ -25,7 +25,7 @@ export class AppComponent {
 
   restoreSession() {
     this.loginState.restoreSession();
-    const userId = this.loginState.token$.value?.claims?.sub;
+    const userId = this.loginState.token$.value?.userInfo?.sub;
     if (userId) {
       this.appState.loadCurrentUser(userId).subscribe();
     }

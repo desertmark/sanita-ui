@@ -52,7 +52,7 @@ export class LoginState {
     return new Observable(subscriber => {
       const req = {
         body: {
-          email: this.state.username,
+          username: this.state.username,
           password: this.state.password,
         }
       };

@@ -42,23 +42,25 @@ export class AppState {
   constructor(private userApi: UserApi) {
   }
 
-  loadCurrentUser(userId: string): Observable<void> {
+  loadCurrentUser(userInfo: any): Observable<void> {
     return new Observable(subscriber => {
-      const req = {
-        params: {
-          userId,
-        },
-      };
-      const sub = this.userApi.getUserById(req).subscribe({
-        next: res => {
-          this.state.currentUser$.next(res);
-          this.state.appReady$.next(true);
-          subscriber.next();
-        },
-        error: error => subscriber.error(error),
-        complete: () => subscriber.complete(),
-      });
-      this.state.loadingCurrentUser.waitFor(sub);
+      // const req = {
+      //   params: {
+      //     userId,
+      //   },
+      // };
+      this.currentUser$.next(userInfo);
+      subscriber.next();
+      // const sub = this.userApi.getUserById(req).subscribe({
+      //   next: res => {
+      //     this.state.currentUser$.next(res);
+      //     this.state.appReady$.next(true);
+      //     subscriber.next();
+      //   },
+      //   error: error => subscriber.error(error),
+      //   complete: () => subscriber.complete(),
+      // });
+      // this.state.loadingCurrentUser.waitFor(sub);
     });
   }
 

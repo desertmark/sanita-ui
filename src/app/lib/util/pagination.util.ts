@@ -11,7 +11,7 @@ export interface PaginatedRequest {
 export interface PaginationConfig<T> {
   apiMethod: (req: PaginatedRequest) => Observable<PaginatedResponse<T>>;
   request: PaginatedRequest;
-  totalSize: number;
+  total: number;
   items: T[];
 }
 
@@ -23,8 +23,8 @@ export class PaginatedResponse<T> {
     return this.config.items;
   }
 
-  get totalSize(): number {
-    return this.config.totalSize;
+  get total(): number {
+    return this.config.total;
   }
 
   next(): Observable<T[]> {

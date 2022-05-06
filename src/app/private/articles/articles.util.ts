@@ -60,7 +60,7 @@ export class ArticlesUtil {
       transportField: this.toPercentage(article.transport),
       cardField: this.toPercentage(article.card),
       cardPriceField: article.cardPrice,
-      categoryIdField: article.category._id,
+      categoryIdField: article.category.id,
       categoryIdFieldOption: article.category,
       discountFields: this.toDiscountArticleDetailsValues(article.discounts)
     };

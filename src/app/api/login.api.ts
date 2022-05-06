@@ -4,19 +4,16 @@ import { Observable } from 'rxjs';
 import { BaseApi } from './base.api';
 export interface LoginRequest {
   body: {
-    email: string;
+    username: string;
     password: string;
   };
 }
 
 export interface LoginResponse {
-  token: string;
-  claims: {
-      sub: string;
-      name: string;
-      email: string;
-  };
+  accessToken: string;
+  userInfo: any;
 }
+
 @Injectable()
 export class LoginApi extends BaseApi {
 

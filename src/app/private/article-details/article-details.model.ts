@@ -28,7 +28,7 @@ export interface ArticlesDetailsValues {
 }
 
 export interface DiscountField {
-  _id: string;
+  id: string;
   descriptionField: TextFieldModel;
   amountField: NumberFieldModel;
 }
@@ -129,14 +129,14 @@ export class ArticleDetailsModel extends BaseModel<ArticlesDetailsValues> {
     placeholder: 'Escriba para buscar',
     validatorOrOpts: [Validators.required],
     textGetter: category => category?.description,
-    valueGetter: category => category?._id,
+    valueGetter: category => category?.id,
     leftIcon: 'search',
     searchDelay: 500,
   });
 
   discountFields = this.defaults?.discountFields?.map(disc => {
     return {
-      _id: disc._id,
+      id: disc.id,
       descriptionField: new TextFieldModel({
         defaultValue: disc.description,
       }),
@@ -151,7 +151,7 @@ export class ArticleDetailsModel extends BaseModel<ArticlesDetailsValues> {
     const values = super.values;
     values.discountFields = this.discountFields.map(disc => {
       return {
-        _id: disc._id,
+        id: disc.id,
         amount: disc.amountField.value as number,
         description: disc.descriptionField.value as string,
       } as Discount;
